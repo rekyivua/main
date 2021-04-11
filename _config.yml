@@ -91,22 +91,22 @@ defaults:
     values:
       layout: "default"
 
-# plugins:
-#   - jekyll-sitemap
+plugins:
+  - jekyll-sitemap
 #   - jekyll-paginate-v2
 
-# sass:
-#   style: compressed
+sass:
+  style: compressed
 
-# compress_html:
-#   clippings: all
-#   comments: [""]
-#   endings: []
-#   ignore:
-#     envs: []
-#   blanklines: false
-#   profile: false
-#   startings: []
+compress_html:
+  clippings: all
+  comments: [""]
+  endings: []
+  ignore:
+    envs: []
+  blanklines: false
+  profile: false
+  startings: []
 
 main_url: https://www.realestate.net.ua
 # staticman_url: https://addnew.herokuapp.com/v2/entry/realtyua/main/master/comments
