@@ -1,6 +1,10 @@
 ---
 last_modified_at: 2021-04-11T15:14:02+02:00
+layout: default
 title: Нерухомість в місті Київ та в Київській області
 ---
 
-Нерухомість Києва та Київської області...
+{%- if page.url contains "city" or page.url contains "town" -%}{%- assign isCityTown = true -%}{%- else -%}{%- assign isCityTown = false -%}{%- endif -%}
+{%- if page.url contains "village" -%}{%- assign isVillage = true -%}{%- else -%}{%- assign isVillage = false -%}{%- endif -%}
+<div id="adsre" class="card-deck mx-n2 mb-3"></div>
+{% include home/deck.html %}
