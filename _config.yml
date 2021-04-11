@@ -91,9 +91,9 @@ defaults:
     values:
       layout: "default"
 
-# plugins:
-#   - jekyll-sitemap
-#   - jekyll-paginate-v2
+plugins:
+  - jekyll-sitemap
+  - jekyll-paginate-v2
 
 sass:
   style: compressed
