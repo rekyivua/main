@@ -42,15 +42,15 @@
 #
 # Realtor / Agent
 #
-# - type: realtor
-#   item: myronyuk
-#   name: Нерухомість в Карпатах - Аня Миронюк
-#   address: 76018, м. Івано-Франківськ, вул.&nbsp;Січових&nbsp;Стрільців,&nbsp;56
-#   phone_main: 380675571844
-#   phone_hot: 380675571844
-#   phone_fax: 380675571844
-#   email: anuamir702@gmail.com
-#   www: https://www.realestate.if.ua/
+- type: realtor
+  item: kulyk
+  name: Нерухомість в столиці - Анатолій Кулик
+  # address: 76018, м. Івано-Франківськ, вул.&nbsp;Січових&nbsp;Стрільців,&nbsp;56
+  phone_main: 380672349221
+  phone_hot: 380672349221
+  phone_fax: 380672349221
+  email: manager@realestate.kyiv.ua
+  # www: https://www.realestate.if.ua/
 
 #
 # Agency
