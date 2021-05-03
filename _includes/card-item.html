@@ -8,7 +8,7 @@
   {%- elsif slug == 'garage' -%}
     Окремі та спільні {{ one.navtitle | downcase }} і паркувальні місця над землею та під землею
   {%- elsif slug == 'house' -%}
-    Великі і маленькі {{ one.navtitle | downcase }} іх окремі частини та відокремлені кімнати у будинку
+    Великі і маленькі {{ one.navtitle | downcase }} їх окремі частини та відокремлені кімнати у будинку
   {%- elsif slug == 'land' -%}
     {{ one.navtitle }} для сільського господарства і земельні ділянки для будівництва
   {%- elsif slug == 'realtor' -%}
@@ -28,7 +28,19 @@
 
 {%- capture ncomplexes -%}
   {%- if slug == 'developer' -%}
+    {%- assign objects = '' | split: '' -%}
+    {%- assign pages = site.html_pages -%}
+    {%- for ob in pages -%}
+      {%- if ob.dir contains thehere and ob.url contains 'object' and ob.layout == 'object' -%}
+        {%- unless ob.dir contains '/developer/builder/object/' -%}
+          {%- assign objects = objects | push: p -%}
+        {%- endunless -%}
+      {%- endif -%}
+    {%- endfor -%}
+  {% comment %}
+    {%- assign demo_objects = site.region_slug | prepend: '/region/city/' | append: '/developer/builder/object/' -%}
     {%- assign objects = site.html_pages | where_exp: "i", "i.dir contains thehere and i.url contains 'object' and i.layout == 'object'" -%}
+  {% endcomment %}
     <span class="badge text-white p-0 m-1">
       <span class="bg-primary py-1 px-2 rounded-left">Об'єктів</span><span class="py-1 px-2 bg-info rounded-right">{{ objects | size }}</span>
     </span>
@@ -37,12 +49,12 @@
 
 {%- capture nsellers -%}
   {%- if slug == 'developer' -%}
-    {%- assign developers = site.html_pages | where_exp: "i", "i.dir contains thehere and i.url contains 'developer' and i.layout == 'developer'" -%}
+    {%- assign developers = site.html_pages | where_exp: "i", "i.dir contains thehere and i.url contains 'developer' and i.layout == 'developer' and i.navtitle != 'Будівельник'" -%}
     <span class="badge text-white p-0 m-1">
       <span class="bg-primary py-1 px-2 rounded-left">Забудовників</span><span class="py-1 px-2 bg-info rounded-right">{{ developers | size }}</span>
     </span>
   {%- elsif slug == 'realtor' -%}
-    {%- assign realtors = site.html_pages | where_exp: "i", "i.dir contains thehere and i.url contains 'realtor' and i.layout == 'realtor'" -%}
+    {%- assign realtors = site.html_pages | where_exp: "i", "i.dir contains thehere and i.url contains 'realtor' and i.layout == 'realtor' and i.navtitle != 'Агент Продавець'" -%}
     <span class="badge text-white p-0 m-1">
       <span class="bg-primary py-1 px-2 rounded-left">Aгентів і ріелторів</span><span class="py-1 px-2 bg-info rounded-right">{{ realtors | size }}</span>
     </span>

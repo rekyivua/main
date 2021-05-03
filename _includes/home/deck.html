@@ -19,7 +19,9 @@
       {%- endcomment -%}
       <div class="col-12">
         <h2 class="mb-4">
-          <a href="{{ one.url }}">{%- if one.title -%}{{ one.title }}{%- else -%}{{ one.navtitle }}{%- endif -%}</a>
+          <a href="{{ one.url }}" title="Безкоштовні оголошення про {{ one.title | downcase }}">
+            {%- if one.title -%}{{ one.title }}{%- else -%}{{ one.navtitle }}{%- endif -%}
+          </a>
           {% if one.url contains "/district/" %} {{ site.data.lang-uk.deck_region_in }}{% endif %}
         </h2>
         {%- include home/region.html current=one.url -%}
@@ -35,7 +37,7 @@
             {%- comment -%}
             <div class="col-12">
               <h2 class="mb-4">
-                <a href="{{ two.url }}">
+                <a href="{{ two.url }}" title="Безкоштовні оголошення про {{ two.title | downcase }}">
                   {%- if two.title -%}{{ two.title }}{%- else -%}{{ two.navtitle }}{%- endif -%}
                 </a>
                 {% if two.url contains '/region/city/' or two.url contains '/district/town/' %} {{ site.data.lang-uk.deck_region_in }}{% endif %}
@@ -44,7 +46,7 @@
             {%- endcomment -%}
             <div class="col-12">
               <h2 class="mb-4">
-                <a href="{{ two.url }}">
+                <a href="{{ two.url }}" title="Безкоштовні оголошення про {{ two.title | downcase }}">
                   {%- if two.title -%}{{ two.title }}{%- else -%}{{ two.navtitle }}{%- endif -%}
                 </a>
                 {% if two.url contains '/region/city/' or two.url contains '/district/town/' %} {{ site.data.lang-uk.deck_region_in }}{% endif %}
@@ -58,7 +60,7 @@
     {%- endif -%}
   {%- endfor -%}
   <div class="col-12">
-    <h2 class="mb-4">Інші <a href="/amalgamated-hromades.html">територіальні об'єднані громади</a> Київської області</h2>
-    <p class="small">Нерухомість на територіях... сільської територіальних громад.</p>
+    <h2 class="mb-4">Інші <a href="/amalgamated-hromades.html" title="Безкоштовні оголошення про продаж нерухомості місцевих громад">територіальні об'єднані громади</a> Київської області</h2>
+    <p class="small">Нерухомість на територіях... територіальних громад.</p>
   </div>
 </div>

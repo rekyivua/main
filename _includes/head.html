@@ -41,9 +41,11 @@
   <link href="{{ "/assets/css/main.css" | relative_url }}?v={{ site.time | date: '%Y%m%d%H%M%S' }}" rel="stylesheet">
 {%- else -%}
 
+  {%- assign main_region = site.region_slug | prepend: '/region/' | append: '/' -%}
+
   {%- if page.table == 1 or page.table == 2 -%}
     {%- if page.url contains 'map.html' -%}
-    {%- elsif slash.size == 3 and page.dir == '/region/kyivska/' -%}
+    {%- elsif slash.size == 3 and page.dir == main_region -%}
       <link rel="preload" href="{{ "/assets/css/main.tl.css" | relative_url }}?v={{ site.time | date: '%Y%m%d%H%M%S' }}" as="style">
     {%- elsif slash.size >= 3 and page.dir != '/region/city/' and page.dir != '/district/town/'-%}
       <link rel="preload" href="{{ "/assets/css/main.tl.css" | relative_url }}?v={{ site.time | date: '%Y%m%d%H%M%S' }}" as="style">
@@ -74,11 +76,17 @@
         <link rel="preload" href="{{ "/assets/js/main.t.js" | relative_url }}?v={{ site.time | date: '%Y%m%d%H%M%S' }}" as="script">
       {%- endif -%}
     {%- elsif page.table == 2 -%}
+      {%- assign preload_all_json = main_region | append: 'data/all.json' -%}
+      {%- capture preload_alljson -%}{%- file_exists {{ preload_all_json }} -%}{%- endcapture -%}
       {%- if page.url contains 'map.html' -%}
-      {%- elsif slash.size == 3 and page.dir == '/region/kyivska/' -%}
+      {%- elsif slash.size == 3 and page.dir == main_region -%}
         <link rel="preload" href="{{ "/assets/js/main.tml.js" | relative_url }}?v={{ site.time | date: '%Y%m%d%H%M%S' }}" as="script">
+        {%- if preload_alljson == 'true' -%}
+        <link rel="preload" href="{{ preload_all_json | relative_url }}?v={{ site.time | date: '%Y%m%d%H%M%S' }}" as="fetch">
+        {%- endif -%}
       {%- elsif slash.size >= 3 and page.dir != '/region/city/' and page.dir != '/district/town/'-%}
         <link rel="preload" href="{{ "/assets/js/main.tml.js" | relative_url }}?v={{ site.time | date: '%Y%m%d%H%M%S' }}" as="script">
+        <meta name="{{ preload_alljson }}-0" content="{{ main_region }}">
       {%- else -%}
         <link rel="preload" href="{{ "/assets/js/main.tm.js" | relative_url }}?v={{ site.time | date: '%Y%m%d%H%M%S' }}" as="script">
       {%- endif -%}
@@ -115,7 +123,3 @@
 {%- endif -%}
 
 {%- include analytics-google.html -%}
-
-{% comment %}
-{%- include heapanalytics.html -%}
-{% endcomment %}
