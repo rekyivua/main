@@ -10,8 +10,8 @@ region: Київська область
 region_slug: kyivska
 region_size: .89rem
 
-usd: 27.85
-eur: 33.15
+usd: 27.72
+eur: 33.72
 
 title: Мережа Вебсайтів Нерухомості
 keywords: будинки, квартири, земля, житло, нежитлові приміщення, кімнати, оренда, частини квартири, частини будинку, гаражі, місця паркування, ділянки
@@ -32,17 +32,17 @@ developer:
 contact:
   name: Мережа Вебсайтів Нерухомості в&nbsp;Україні
   address: 76018, м. Івано-Франківськ, вул.&nbsp;Січових&nbsp;Стрільців,&nbsp;56
-  phone_main: 380672349221
-  phone_hot: 380672349221
-  phone_fax: 380672349221
+  phone_main: 380504949649
+  phone_hot: 380504949649
+  phone_fax: 380504949649
   phone_sms: 380504949649
   phone_advert: 380504949649
-  phone_buy_sell: 380672349221
+  phone_buy_sell: 380504949649
   phone_add_ads: 380504949649
   phone_submit_ads: 380504949649
   phone_support: 380504949649
-  phone_buy: 380672349221
-  phone_sell: 380672349221
+  phone_buy: 380504949649
+  phone_sell: 380504949649
   email: info@realestate.kyiv.ua
   www: https://www.realestate.kyiv.ua/
 
