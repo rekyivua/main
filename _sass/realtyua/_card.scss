@@ -49,23 +49,53 @@
   }
 }
 .bg-0 { background-color: #f8f9fa; }
-//.bg-1 { background-color: #e0cffc; }
 .bg-1 { background-color: #f0e7fe; }
-//.bg-2 { background-color: #f8d7da; }
 .bg-2 { background-color: #fcedee; }
-//.bg-3 { background-color: #d1e7dd; }
 .bg-3 { background-color: #e2f0e9; }
-//.bg-4 { background-color: #f7d6e6; }
 .bg-4 { background-color: #fbebf3; }
-//.bg-5 { background-color: #cfe2ff; }
 .bg-5 { background-color: #e9f1ff; }
-//.bg-6 { background-color: #ffe5d0; }
 .bg-6 { background-color: #fff3ea; }
-//.bg-7 { background-color: #e2d9f3; }
 .bg-7 { background-color: #f1ecf9; }
-//.bg-8 { background-color: #fff3cd; }
 .bg-8 { background-color: #fff9e7; }
-//.bg-9 { background-color: #d2f4ea; }
 .bg-9 { background-color: #e6f9f4; }
-//.bg-10 { background-color: #cff4fc; }
 .bg-10 { background-color: #e7fafe; }
+
+// _card_deck_columns.scss
+// add deck-X and deck-BP-X classes to select the number of cards per line
+@for $i from 2 through $grid-columns {
+  $percentage: percentage(1 / $i);
+  $calc: calc(#{$percentage} - #{$card-deck-margin * 2});
+  .deck-#{$i} {
+    // Force flex display, even on small screens
+    display: flex;
+    flex-flow: row wrap;
+    margin-left:  -$card-deck-margin;
+    margin-right: -$card-deck-margin;
+    & > .card {
+      flex-basis: $calc;
+      max-width:  $calc;
+      // Cards have no left/right margins on small screens by default
+      margin-left:  $card-deck-margin;
+      margin-right: $card-deck-margin;
+    }
+  }
+}
+@each $breakpoint in map-keys($grid-breakpoints) {
+  $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+  @include media-breakpoint-up($breakpoint) {
+    @for $i from 1 through $grid-columns {
+      $percentage: percentage(1 / $i);
+      $calc: calc(#{$percentage} - #{$card-deck-margin * 2});
+      .deck#{$infix}-#{$i} {
+        margin-left:  -$card-deck-margin;
+        margin-right: -$card-deck-margin;
+        & > .card {
+          flex-basis: $calc;
+          max-width:  $calc;
+          margin-left:  $card-deck-margin;
+          margin-right: $card-deck-margin;
+        }
+      }
+    }
+  }
+}
