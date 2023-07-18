@@ -1,13 +1,13 @@
-<footer id="contacts" role="contentinfo">
+<footer id="contacts">
   <div class="container border-top-4 border-primary">
     {%- if page.url != '/' -%}
     <div class="row pt-4">
       <div class="col-12">
         <div class="d-flex justify-content-end">
-          <h5 class="mb-0">
+          <div class="h5 mb-0">
             {%- if page.url contains 'help.html' -%}{%- else -%}<a href="/help" class="badge badge-success mr-2">{{ site.data.lang-uk.help }}</a>{%- endif -%}
             <a id="mapsite" class="badge badge-secondary collapsed" data-toggle="collapse" href="#websitemap" role="button" aria-expanded="false" aria-controls="websitemap" data-target=".website-map">{{ site.data.lang-uk.map_site }}</a>
-          </h5>
+          </div>
         </div>
         <div class="collapse multi-collapse website-map" id="websitemap">{%- include map/0.html -%}</div>
       </div>
@@ -16,11 +16,11 @@
     <div class="row justify-content-md-center mt-4">
       <div class="col-md-6 col-lg-5">
         <div class="d-flex position-relative">
-          <a href="/ukraine" class="text-decoration-none border-0">
+          <a href="/ukraine" class="text-decoration-none border-0" aria-label="{{ site.data.lang-uk.ua }}">
             {%- include icons/trezub.svg width="27" height="45" class="flex-shrink-0 mr-3" -%}
           </a>
           <div>
-            <h5 class="my-0">{{ fname }}</h5>
+            <h6 class="h5 my-0">{{ fname }}</h6>
             <address>{%- include footer/contact.html legal="address" -%}</address>
           </div>
         </div>

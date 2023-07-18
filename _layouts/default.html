@@ -19,13 +19,13 @@ layout: compress
 
       {%- include header.html -%}
 
-      <main{% if page.url == "/" %} class="content my-4" {% else %} class="content mb-4" {% endif %}role="main">
+      <main{% if page.url == "/" %} class="content my-4"{% else %} class="content mb-4"{% endif %}>
 
         {% if page.url == "/" %}
 
           <div class="container pb-1 lead-badge">
-            <h1 class="h4">Оголошення про продаж і оренду нерухомого майна в містах та районах <a href="/region/{{ site.region_slug }}/" title="Всі оголошення та об'єкти нерухомісті області">{{ site.data.area.deck_region_in }}</a></h1>
-            <a class="badge badge-primary" data-toggle="collapse" href="#collapseArea" role="button" aria-expanded="false" aria-controls="collapseArea" title="Місцевість де розташована нерухомість">Виберіть місцевіть</a> <span class="badge badge-light text-wrap text-left">де б ви хотіли <strong>знайти, купити чи <a href="https://add.{{ site.domain }}">продати нерухомість</a></strong> або</span>
+            <h1 class="h4">Оголошення про продаж і оренду нерухомого майна в містах та районах <a href="/region/{{ site.region_slug }}/" title="Всі оголошення та об'єкти нерухомісті області">{{ site.data.lang-uk.deck_region_in }}</a></h1>
+            <a class="badge badge-primary" data-toggle="collapse" href="#collapseArea" role="button" aria-expanded="false" aria-controls="collapseArea" title="Місцевість де розташована нерухомість">Виберіть місцевіть</a> <span class="badge badge-light text-wrap text-left">де б ви хотіли <strong>знайти, купити чи продати нерухомість</strong> або</span>
             <a class="badge badge-primary text-wrap text-left" data-toggle="collapse" href="#collapseAds" role="button" aria-expanded="false" aria-controls="collapseAds" title="Послуги що можуть зацікавити">побудувати чи просто зробити ремонт і облаштувати свою оселю</a>
           </div>
 
@@ -90,12 +90,13 @@ layout: compress
       {% include modals/re-map-modal.html %}
     {%- endif -%}
 
+{% comment %}
+
     {%- if page.url contains '/new.html' -%}
       <script src="{{ '/assets/js/add.js' | relative_url }}"></script>
       <script src="https://www.google.com/recaptcha/api.js?hl=uk"></script>
     {%- endif -%}
 
-{% comment %}
     {%- if page.url contains '/construction.html' and page.layout == 'sells'-%}
       <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script>
       <script src="https://unpkg.com/infinite-scroll@4/dist/infinite-scroll.pkgd.min.js"></script>
@@ -116,6 +117,7 @@ layout: compress
 
       </script>
     {%- endif -%}
+
 {% endcomment %}
 
   </body>
