@@ -5,7 +5,7 @@
     {%- assign current = 2.url | remove: slug | remove: "//" | append: "/" -%}
     {%- if include.current == current and 2.navhide != 1 and 2.title != '' -%}
     <optgroup label="{%- if 2.navtitle -%}{{ 2.navtitle }}{%- else -%}{{ 2.title }}{%- endif -%}">
-      {%- include select/2.html current=2.url -%}
+      {%- include select/2.html current=2.url navtitle=2.navtitle -%}
     </optgroup>
     {%- endif -%}
   {%- endfor -%}
