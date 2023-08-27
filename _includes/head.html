@@ -125,5 +125,11 @@
   {%- endif -%}
 
 {%- endif -%}
-
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/css/tom-select.min.css">
+<style>
+    .ts-control, .ts-control input, .ts-dropdown { font-size: .96rem; }
+    .plugin-clear_button.form-select .clear-button, .plugin-clear_button.single .clear-button { right: max(.375em,.375rem); }
+    .ts-dropdown .optgroup-header { cursor: default; font-weight: 600; }
+    .ts-dropdown [data-selectable].option { padding-left: 20px; }
+</style>
 {%- include analytics-google.html -%}
