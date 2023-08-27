@@ -2,6 +2,6 @@
 {%- assign regs = site.data.realestate | sort: 'navtitle' -%}
 {%- for reg in regs -%}
 {%- if reg.url != site.url -%}
-  <option value="{{ reg.url }}">{{ reg.navtitle }}</option>
+<option value="{{ reg.url }}">{{ reg.navtitle }}</option>
 {%- endif -%}
 {%- endfor -%}

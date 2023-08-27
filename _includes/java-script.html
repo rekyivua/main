@@ -1,5 +1,4 @@
 {%- assign slash = page.dir | split: '/' -%}
-
 {%- if page.dir == '/' and page.url contains '/ukraine.html' -%}
   <script src="{{ "/assets/js/main.ua.js" | relative_url }}?v={{ site.time | date: '%Y%m%d%H%M%S' }}"></script>
 {%- elsif page.dir == '/' and page.url contains '/' -%}
@@ -39,15 +38,3 @@
     {%- endif -%}
   {%- endif -%}
 {%- endif -%}
-<script src="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/js/tom-select.complete.min.js"></script>
-<script type="text/javascript">
-    var settings = {
-      plugins: ['clear_button'],
-      onChange: function(value, event) {
-        if (value !== '') {
-          window.location = value;
-        }
-      }
-    };
-    new TomSelect('#areaSelect',settings);
-</script>
