@@ -5,7 +5,7 @@
     {%- assign current = 3.url | remove: slug | remove: "//" | append: "/" -%}
     {%- if include.current == current and 3.navhide != 1 and 3.title != '' -%}
     <option value="{{ 3.url }}">
-      {{ 3.navtitle }} в {{ include.navtitle }}
+      {{ 3.navtitle }} в {{ include.navtitle | replace_first: "місто", "місті"}}
     </option>
     {%- endif -%}
   {%- endfor -%}
