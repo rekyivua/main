@@ -3,6 +3,7 @@ title: Як повернути пенсійний збір при купівлі
 date: 2021-01-19
 #category: Кредит, Держава, Молодь
 author: Олександр Колесніченко
+layout: post
 source:
   title: Економічна правда
   url: https://www.epravda.com.ua

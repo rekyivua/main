@@ -2,7 +2,8 @@ domain: realestate.kyiv.ua
 main_city: kyiv
 main_region: kyivska
 flag_ua_city: Київ
-deck_region_in:  Київської області
+deck_region_in: Київської
+deck_region_at: Київській
 deck_region: Київська
 kyivska: Київщини
 kyiv: Києва

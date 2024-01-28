@@ -152,14 +152,10 @@ main .leaflet-menu {
   }
 }
 
-article, address {
-  display: inline;
-  margin-bottom: unset;
-  line-height: unset;
-}
+.properties dd { padding-left: 10px; }
+.properties dd .btn:focus, .btn.focus { box-shadow: none; }
 
-.collapsing {
-  -webkit-transition: height .5s ease;
-  -o-transition: height .5s ease;
-  transition: height .5s ease;
-}
+.page-item .page-pre { padding-top: 0.45rem }
+.page-item .page-next { padding-top: 0.45rem }
+
+// .leaflet-menu-contents h2 { margin-top: 8px; }

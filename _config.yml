@@ -72,17 +72,8 @@ defaults:
       path: ""
       type: "posts"
     values:
-      layout: "post"
-  - scope:
-      path: /articles/
-      type: "articles"
-    values:
-      layout: "articles"
-  - scope:
-      path: /news/
-      type: "news"
-    values:
-      layout: "news"
+      layout: "property"
+      permalink: /:categories/:title:output_ext
   - scope:
       path: "assets/images"
     values:
@@ -93,16 +84,24 @@ defaults:
     values:
       layout: "default"
 
-#
-# https://github.com/brockfanning/jekyll-get-json
-#
-
 plugins:
   - jekyll-sitemap
   - jekyll-paginate-v2
   - jekyll-get-json
 
+pagination:
+  enabled: true
+  per_page: 9
+  permalink: '/:num/'
+  title: ' - page :num'
+  limit: 0
+  sort_field: 'date'
+  sort_reverse: true
+
 jekyll_get_json:
+  - data: estates
+    json: 'https://www.realestate.kyiv.ua/region/data/estates.json'
+    cache: true
   - data: if
     json: 'https://www.realestate.if.ua/region/data/options.json'
     cache: true
@@ -132,6 +131,7 @@ jekyll_get_json:
     cache: true
 
 sass:
+  sass_dir: _sass
   style: compressed
 
 compress_html:

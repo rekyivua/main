@@ -3,11 +3,11 @@ last_modified_at: 2023-11-21T21:16:11+02:00
 layout: map
 title: Будинки на мапі
 navtitle: Будинки
-subtitle:
+navhide: 1
 breadcrumb: Київ
 description: Оголошення про купівлю, продаж будинків, частин будинку та окремих кімнат у будинку на мапі столиці України міста Київ
 coordinates: 50.434235,30.5557608
 zoom: 8
 ---
 
-<h1 class="h3">Розташування будинків на мапі - {% if page.url contains "city" or page.url contains "town" %}{{ site.data.lang-uk.city }} {{ page.breadcrumb }}{% else %}{{ page.breadcrumb }} {{ site.data.lang-uk.district }}{% endif %}</h1>
+<h1 class="h3">Розташування будинків на мапі - {% if page.url contains "city" or page.url contains "town" %}{{ site.data.uk.city }} {{ page.breadcrumb }}{% else %}{{ page.breadcrumb }} {{ site.data.uk.district }}{% endif %}</h1>
