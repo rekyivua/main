@@ -5,7 +5,7 @@ Disallow: /*/data/
 Disallow: /*/data/*.json
 Disallow: *.json
 Disallow: *.yml
-Disallow: *CNAME*
+Disallow: *CNAME
 Disallow: /assets/css/*.css
 Disallow: /assets/js/*.js
 Disallow: /404.html
