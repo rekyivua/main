@@ -1,7 +1,7 @@
-{%- assign cdate = site.time | date: "%Y-%m-%d" -%}
+{%- assign cdate = site.time -%}
 {%- assign slug = include.slug -%}
 {%- assign offer = include.offer -%}
-{%- assign date = offer.date | date: "%Y-%m-%d" -%}
+{%- assign date = offer.date -%}
 {%- capture folder -%}/assets/images/{{ offer.phone }}/{{ offer.id }}/{%- endcapture -%}
 {%- capture files -%}
   {%- for file in site.static_files -%}

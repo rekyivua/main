@@ -1,5 +1,5 @@
-{%- assign cdate = site.time | date: "%Y-%m-%d" -%}
-{%- assign date = offer.date | date: "%Y-%m-%d" -%}
+{%- assign cdate = site.time -%}
+{%- assign date = offer.date -%}
 {%- assign offer = include.offer -%}
 {%- capture folder -%}/assets/images/{{ offer.phone }}/{{ offer.id }}/{%- endcapture -%}
 {%- assign images = site.static_files | where: 'image', true | where_exp: 'i', "i.path contains folder and i.extname == '.jpg' or i.extname == '.JPG'" -%}

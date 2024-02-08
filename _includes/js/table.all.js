@@ -76,13 +76,12 @@ function jsDetailFormatter(index, row, $detail) {
   var reKvartyra = (row.type.includes('{{ site.data.uk.re_kvartyru }}')) ? "{{ site.data.uk.re_apartment }}" : row.type;
   var reSelleOrSeller = (row.rent == 1) ? "{{ site.data.uk.re_sellerr }}" : "{{ site.data.uk.re_seller }}";
   var rePhoneOrPhoner = (row.rent == 1) ? "{{ site.data.uk.re_phoner }}" : "{{ site.data.uk.re_phone }}";
-  var cd = new Date();
-	var cn = cd.getMonth();
+  // var cd = new Date();
+	// var cn = cd.getMonth();
 	var d = new Date(row.date);
 	var n = d.getMonth();
   var frY = (row.floor !== '') ? row.floor + '-й' : '';
   var flX = function() { if (row.floors == 1) { return row.floors + '-но'; } else if (row.floors < 5) { return row.floors + '-х'; } else if (row.floors == 7 || row.floors == 8) { return row.floors + '-ми'; } else { return row.floors + '-ти'; } };
-
   var reHeader = function() {
 		html = ['<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 mx-n1">',]
 		if (row.coordinates && row.coordinates !== '') {
@@ -103,7 +102,6 @@ function jsDetailFormatter(index, row, $detail) {
 		if (row.parking && row.parking !== '') { html.push('<div class="col px-1"><dl><dt>{{ site.data.uk.re_parking }}</dt><dd>' + row.parking + '</dd></dl></div>') }
 		if (row.object && row.object !== '') { html.push('<div class="col px-1"><dl><dt>{{ site.data.uk.re_object }}</dt><dd>' + row.object + '</dd></dl></div>') }
 	};
-
   var rePriceSqmt = function() {
 
     if (row.price !== '' && row.price_sqmt == '' && row.type.includes('{{ site.data.uk.re_land }}') || row.type.includes('{{ site.data.uk.re_land | downcase }}')) {
@@ -159,53 +157,43 @@ function jsDetailFormatter(index, row, $detail) {
     }
 
   };
-
   var reFooter = function() {
-
     if (row.rent && row.rent !== '' && row.rent == 1) {
-
-			if (row.date !== '' && d > cd) {
-				html.push('<div class="col px-1"><dl><dt>{{ site.data.uk.re_dater }}</dt><dd>' + cd.getDate() + '&nbsp;' + month[cn] + '&nbsp;' + cd.getFullYear() + '&nbsp;{{ site.data.uk.roku }}</dd></dl></div>')
-			} else {
-				html.push('<div class="col px-1"><dl><dt>{{ site.data.uk.re_dater }}</dt><dd>' + d.getDate() + '&nbsp;' + month[n] + '&nbsp;' + d.getFullYear() + '&nbsp;{{ site.data.uk.roku }}</dd></dl></div>')
-			}
-
+      html.push('<div class="col px-1"><dl><dt>{{ site.data.uk.re_dater }}</dt><dd>' + d.getDate() + '&nbsp;' + month[n] + '&nbsp;' + d.getFullYear() + '&nbsp;{{ site.data.uk.roku }}</dd></dl></div>')
+			// if (row.date !== '' && d > cd) {
+			// 	html.push('<div class="col px-1"><dl><dt>{{ site.data.uk.re_dater }}</dt><dd>' + cd.getDate() + '&nbsp;' + month[cn] + '&nbsp;' + cd.getFullYear() + '&nbsp;{{ site.data.uk.roku }}</dd></dl></div>')
+			// } else {
+			// 	html.push('<div class="col px-1"><dl><dt>{{ site.data.uk.re_dater }}</dt><dd>' + d.getDate() + '&nbsp;' + month[n] + '&nbsp;' + d.getFullYear() + '&nbsp;{{ site.data.uk.roku }}</dd></dl></div>')
+			// }
 		} else if (row.type.includes('{{ site.data.uk.re_land }}') || row.type.includes('{{ site.data.uk.re_land | downcase }}')) {
-
-			if (row.date !== '' && d > cd) {
-				html.push('<div class="col px-1"><dl><dt>{{ site.data.uk.re_datel }}</dt><dd>' + cd.getDate() + '&nbsp;' + month[cn] + '&nbsp;' + cd.getFullYear() + '&nbsp;{{ site.data.uk.roku }}</dd></dl></div>')
-			} else {
-				html.push('<div class="col px-1"><dl><dt>{{ site.data.uk.re_datel }}</dt><dd>' + d.getDate() + '&nbsp;' + month[n] + '&nbsp;' + d.getFullYear() + '&nbsp;{{ site.data.uk.roku }}</dd></dl></div>')
-			}
-
+      html.push('<div class="col px-1"><dl><dt>{{ site.data.uk.re_datel }}</dt><dd>' + d.getDate() + '&nbsp;' + month[n] + '&nbsp;' + d.getFullYear() + '&nbsp;{{ site.data.uk.roku }}</dd></dl></div>')
+			// if (row.date !== '' && d > cd) {
+			// 	html.push('<div class="col px-1"><dl><dt>{{ site.data.uk.re_datel }}</dt><dd>' + cd.getDate() + '&nbsp;' + month[cn] + '&nbsp;' + cd.getFullYear() + '&nbsp;{{ site.data.uk.roku }}</dd></dl></div>')
+			// } else {
+			// 	html.push('<div class="col px-1"><dl><dt>{{ site.data.uk.re_datel }}</dt><dd>' + d.getDate() + '&nbsp;' + month[n] + '&nbsp;' + d.getFullYear() + '&nbsp;{{ site.data.uk.roku }}</dd></dl></div>')
+			// }
 		} else {
-
-			if (row.date !== '' && d > cd) {
-				html.push('<div class="col px-1"><dl><dt>{{ site.data.uk.re_date }}</dt><dd>' + cd.getDate() + '&nbsp;' + month[cn] + '&nbsp;' + cd.getFullYear() + '&nbsp;{{ site.data.uk.roku }}</dd></dl></div>')
-			} else {
-				html.push('<div class="col px-1"><dl><dt>{{ site.data.uk.re_date }}</dt><dd>' + d.getDate() + '&nbsp;' + month[n] + '&nbsp;' + d.getFullYear() + '&nbsp;{{ site.data.uk.roku }}</dd></dl></div>')
-			}
-
+      html.push('<div class="col px-1"><dl><dt>{{ site.data.uk.re_date }}</dt><dd>' + d.getDate() + '&nbsp;' + month[n] + '&nbsp;' + d.getFullYear() + '&nbsp;{{ site.data.uk.roku }}</dd></dl></div>')
+			// if (row.date !== '' && d > cd) {
+			// 	html.push('<div class="col px-1"><dl><dt>{{ site.data.uk.re_date }}</dt><dd>' + cd.getDate() + '&nbsp;' + month[cn] + '&nbsp;' + cd.getFullYear() + '&nbsp;{{ site.data.uk.roku }}</dd></dl></div>')
+			// } else {
+			// 	html.push('<div class="col px-1"><dl><dt>{{ site.data.uk.re_date }}</dt><dd>' + d.getDate() + '&nbsp;' + month[n] + '&nbsp;' + d.getFullYear() + '&nbsp;{{ site.data.uk.roku }}</dd></dl></div>')
+			// }
 		}
-
     if (row.seller && row.seller !== '') {
 			html.push('<div class="col px-1"><dl><dt>' + reSelleOrSeller + '</dt><dd><a href="{{ site.url }}/region/{{ site.region_slug }}/?id=' + row.phone + '" title="{{ site.data.uk.offers }}">' + row.seller.replace('{{ site.data.uk.re_seller }} ','') + '</a></dd></dl></div>'),
 			html.push('<div class="col px-1"><dl><dt>' + rePhoneOrPhoner + '</dt><dd><a href="tel:+' + row.phone + '" rel="nofollow">+' + row.phone.substr(0, 2) + '&nbsp;' + row.phone.substr(2, 3) + '&nbsp;' + row.phone.substr(5, 3) + '&nbsp;' + row.phone.substr(8, 2) + '&nbsp;' + row.phone.substr(10, 2) + '</a><i class="d-none">' + row.id + '</i></dd></dl></div>'),
 			html.push('</div>')
 		}
-
     if (row.description && row.description !== '') {
       html.push('<div class="row mx-n1">'),
       html.push('<div class="col-12 px-1"><dl><dt>{{ site.data.uk.re_description }}</dt><dd>' + row.description + '</dd></dl></div>'), html.push('</div>')
     }
-
   };
-
   $.each(row, function (key, value) { if (key !== 'images' || key !== 'id' && value !== '') { reHeader(); rePriceSqmt(); reFooter(); } })
   const images = Object.values(row.images || {});
   if (images.length) { var region = row.region.replace('кий', 'кому'); var district = region.replace('район', 'районі'); html.push('<hr class="mt-0"><div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 mx-n1">'), html.push(images.map(function (image) { return '<figure class="col px-1"><a href="/assets/images/' + row.phone + '/' + row.id + '/' + image.src + '" class="lightbox" title="' + image.title + '" data-lightbox-caption="{{ site.data.uk.re_free_ads_in }} ' + row.location + '' + district + '" data-lightbox-width="800" data-lightbox-height="600" data-lightbox-group="re-' + row.id + '4' + row.phone + '"><img src="/assets/images/' + row.phone + '/' + row.id + '/' + image.src + '" loading="lazy" title="' + image.title + '" alt="' + image.alt + '" class="img-fluid img-thumbnail" width="380" height="285"></a></figure>' }).join('')), html.push('</div>') }
   $detail.html(html.join(''))
-
 }
 
 function propertyFormatter(value, row) {
