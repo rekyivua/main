@@ -1,7 +1,7 @@
-{%- assign cdate = site.time -%}
+{%- assign cdate = site.time | date: '%Y%m%d' -%}
 [
   {%- for offer in offers -%}
-    {%- assign date = offer.date -%}
+    {%- assign date = offer.date | date: '%Y%m%d' -%}
     {%- assign district = offer.region | replace_first: 'кий', 'кому' | replace: 'район', 'районі' -%}
     {%- capture folder -%}/assets/images/{{ offer.phone }}/{{ offer.id }}/{%- endcapture -%}
     {%- assign images = site.static_files | where: 'image', true | where_exp: 'i', "i.path contains folder and i.extname == '.jpg' or i.extname == '.JPG'" -%}

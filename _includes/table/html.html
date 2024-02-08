@@ -1,5 +1,5 @@
-{%- assign cdate = site.time -%}
-{%- assign date = offer.date -%}
+{%- assign cdate = site.time | date: '%Y%m%d' -%}
+{%- assign date = offer.date | date: '%Y%m%d' -%}
 {%- assign district = offer.region | replace_first: 'кий', 'кому' | replace: 'район', 'районі' -%}
 {%- capture folder -%}/assets/images/{{ offer.phone }}/{{ offer.id }}/{%- endcapture -%}
 {%- capture files -%}
