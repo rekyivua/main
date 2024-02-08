@@ -25,7 +25,7 @@
       "address":"{{ offer.address }}",
       "object":"{{ offer.object }}",
       "coordinates":"{{ offer.coordinates }}",
-      "date":"{%- if date > cdate -%}{{ cdate | date: "%Y-%m-%d" }}{%- else -%}{{ date | date: "%Y-%m-%d" }}{%- endif -%}",
+      "date":"{%- if date > cdate -%}{{- site.time | date: "%Y-%m-%d" -}}{%- else -%}{{- offer.date | date: "%Y-%m-%d" -}}{%- endif -%}",
       "seller":"{{ offer.seller }}",
       "phone":"{{ offer.phone }}",
       "description":"{{ offer.description }}",
