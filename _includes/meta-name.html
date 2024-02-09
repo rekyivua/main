@@ -123,8 +123,13 @@
     <meta property="og:image:height" content="315">
 {%- endif -%}
 {%- include twitter-meta.html -%}
-{%- assign cdate = site.time | date: "%Y-%m-%d" -%}
-<meta name="date" content="{%- include date.html date=cdate -%}">
+{%- if pageu == '/' -%}
+  {%- assign cdate = site.time | date: "%Y-%m-%d" -%}
+  <meta name="date" content="{%- include date.html date=cdate -%}">
+{%- elsif page.layout == 'property' -%}
+  {%- assign date = page.date | date: "%Y-%m-%d" -%}
+  <meta name="date" content="{%- include date.html date=date -%}">
+{%- endif -%}
 <meta name="author" content="{{ site.developer.name }}">
 <meta name="format-detection" content="telephone=no">
 <link rel="icon" type="image/x-icon" href="{{ 'favicon.ico' | relative_url }}">
