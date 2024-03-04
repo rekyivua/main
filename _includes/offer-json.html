@@ -8,7 +8,7 @@
     {
       "id":"{{ offer.id }}",
       "type":"{{ offer.type }}",
-      "page":"{{ offer.page }}",
+      {%- if offer.page -%}"page":{{ offer.page }},{%- endif -%}
       "rent":"{{ offer.rent }}",
       "rooms":"{{ offer.rooms }}",
       "surface":"{{ offer.surface }}",

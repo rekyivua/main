@@ -11,9 +11,9 @@ region: Київська область
 region_slug: kyivska
 region_size: .89rem
 
-usd: 38.59
-eur: 41.96
-nbu: 38.3361
+usd: 38.51
+eur: 41.84
+nbu: 38.1575
 
 title: Мережа Вебсайтів Нерухомості
 keywords: будинки, квартири, земля, житло, нежитлові приміщення, кімнати, оренда, частини квартири, частини будинку, гаражі, місця паркування, ділянки
@@ -128,6 +128,9 @@ jekyll_get_json:
     cache: true
   - data: cv
     json: 'https://www.realestate.cv.ua/region/data/options.json'
+    cache: true
+  - data: vn
+    json: 'https://www.realestate.vn.ua/region/data/options.json'
     cache: true
 
 sass:
