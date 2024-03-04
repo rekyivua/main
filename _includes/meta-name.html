@@ -129,7 +129,7 @@
 {%- elsif page.layout == 'property' -%}
   {%- assign date = page.date | date: "%Y-%m-%d" -%}
   {%- assign ldate = page.last_modified_at | date: "%Y-%m-%d" -%}
-  <meta name="date" content="{%- if page.date == page.last_modified_at -%}{%- include date.html date=date -%}{%- else -%}{%- include date.html date=ldate -%}{%- endif -%}">
+  <meta name="date" content="{%- if date == ldate -%}{%- include date.html date=date -%}{%- else -%}{%- include date.html date=ldate -%}{%- endif -%}">
 {%- endif -%}
 <meta name="author" content="{{ site.developer.name }}">
 <meta name="format-detection" content="telephone=no">
