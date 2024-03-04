@@ -37,7 +37,7 @@
       {%- if offer.rent == '1' -%}{{ site.data.uk.re_dater }}{%- else -%}{{ site.data.uk.re_date }}{%- endif -%}&nbsp;<time datetime="{%- if date > cdate -%}{{ site.time | date: '%Y-%m-%d' }}{%- else -%}{{ offer.date | date: '%Y-%m-%d' }}{%- endif -%}">{%- if date > cdate -%}{%- assign cdate = site.time | date: "%Y-%m-%d" -%}{%- include date.html date=cdate -%}{%- else -%}{%- assign date = offer.date | date: "%Y-%m-%d" -%}{%- include date.html date=date -%}{%- endif -%}</time>
     </div>
   </div>
-  {%- if offer.page == '1' or offer.link != '' -%}
+  {%- if offer.page and offer.page == '1' or offer.link and offer.link != '' -%}
   {%- else -%}
     <div class="card-footer border-top-0 bg-white pt-0 pb-2 px-3 text-right">
       <div class="row row-cols-auto justify-content-end">

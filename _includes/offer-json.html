@@ -8,7 +8,7 @@
     {
       "id":"{{ offer.id }}",
       "type":"{{ offer.type }}",
-      {%- if offer.page == 1 -%}"page":{{ offer.page }},{%- endif -%}
+      "page":"{{ offer.page }}",
       "rent":"{{ offer.rent }}",
       "rooms":"{{ offer.rooms }}",
       "surface":"{{ offer.surface }}",
@@ -28,7 +28,7 @@
       "phone":"{{ offer.phone }}",
       {%- if offer.skip -%}"skip":{{ offer.skip }},{%- endif -%}
       "description":"{{ offer.description }}",
-      {%- if offer.page == 1 -%}{%- else -%}"link":"{%- if offer.page == 1 -%}{%- else -%}{{ offer.url }}{%- endif -%}",{%- endif -%}
+      "link":"{%- if offer.page == 1 -%}{%- else -%}{{ offer.link }}{%- endif -%}",
       {%- if images.size > 0 -%}"images":{%- capture img -%}[{%- for file in images limit: 4 -%}{"src":"{{ file.name }}","alt":"{{ offer.type }} {{ site.data.uk.re_in }} {{ offer.location }}{{ district }}","title":"{{ offer.type }} {% if offer.address contains site.data.uk.re_vul %}{{ site.data.uk.re_po }} {{ offer.address }}{% else %}{{ site.data.uk.re_at }} {{ offer.address }}{% endif %} {{ site.data.uk.re_in }} {{ offer.location }}{{ district }}"},{%- endfor -%}]{%- endcapture -%}{{ img | replace: ',]', ']' }}{%- else -%}"images":""{%- endif -%}
     }
     {%- unless forloop.last -%},{%- endunless -%}

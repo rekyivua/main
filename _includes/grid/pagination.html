@@ -37,17 +37,14 @@
             {% elsif page == paginator.page %}
               <li class="page-item active"><span class="page-link">{{ page }}</span></li>
             {% else %}
-              <!-- {{ site.paginate_path }} // {{  paginator.next_page_path }} -->
-              <!-- /{{ url }}/{{ page }}/ -->
-              <!-- <li class="page-item #0"><a class="page-link" href="{{ site.paginate_path | prepend: site.baseurl | replace: '//', '/' | replace: ':num', page }}">{{ page }}</a></li> -->
               <li class="page-item"><a class="page-link" href="/{{ url }}/{{ page }}/">{{ page }}</a></li>
             {% endif %}
           {% else %}
             {% if paginator.page == 5 %}
-              <li class="page-item #1"><a class="page-link" href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}">{{ page }}</a></li>
+              <li class="page-item"><a class="page-link" href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}">{{ page }}</a></li>
             {% endif %}
               <li class="page-item"><span class="page-link">...</span></li>
-              <li class="page-item #2"><a class="page-link" href="/{{ url }}/{{ last_page }}/">{{ last_page }}</a></li>
+              <li class="page-item"><a class="page-link" href="/{{ url }}/{{ last_page }}/">{{ last_page }}</a></li>
             {% break %}
           {% endif %}
         {% elsif paginator.page >= last_five %}
