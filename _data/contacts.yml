@@ -1,66 +1,75 @@
 #
 # Region
 #
-- type: region
-  item: kyivska
-  name: Нерухомість у Київській області
-  address: 76018, м. Івано-Франківськ, вул.&nbsp;Січових&nbsp;Стрільців,&nbsp;56
-  phone_main: 380974949649
-  phone_hot: 380974949649
-  phone_fax: 380974949649
-  email: info@realestate.kyiv.ua
-  www: https://www.realestate.kyiv.ua/
+# - type: region
+#   item: kyivska
+#   name: Нерухомість у Київській області
+#   address: 76018, м. Івано-Франківськ, вул.&nbsp;Січових&nbsp;Стрільців,&nbsp;56
+#   phone_main: 380974949649
+#   phone_hot: 380974949649
+#   phone_fax: 380974949649
+#   email: info@realestate.kyiv.ua
+#   www: https://www.realestate.kyiv.ua/
 
 #
 # District
 #
-- type: district
-  item: bilotserkivskyy
-  name: Нерухомість у Білоцерківському районі
+# - type: district
+#   item: bilotserkivskyy
+#   name: Нерухомість у Білоцерківському районі
 
 #
 # District / Town
 #
-- type: town
-  item: ukrainka
-  name: Нерухомість в місті Українка
+# - type: town
+#   item: ukrainka
+#   name: Нерухомість в місті Українка
 
 #
 # Region / City
 #
-- type: city
-  item: kyiv
-  name: Нерухомість у місті Київ
+# - type: city
+#   item: kyiv
+#   name: Нерухомість у місті Київ
 
 #
 # Developers / Company
 #
 - type: developer
   item: builder
-  name: Будівельна компанія "Будівельник"
+  name: Будівельна компанія "Україна"
+  address: 01000, м. Київ, вул.&nbsp;Степана&nbsp;Бандери,&nbsp;0
+  phone_main: 380000000001
+  phone_hot: 380000000002
+  phone_fax: 380000000003
+  phone_buy: 380000000004
+  email: developer@realestate.in.ua
+  www: https://www.realestate.in.ua/
 
 #
 # Realtor / Agent
 #
 - type: realtor
   item: agent
-  name: Нерухомість від Агента Продавця
-  # address: 76018, м. Івано-Франківськ, вул.&nbsp;Січових&nbsp;Стрільців,&nbsp;56
-  # phone_main: 380504949649
-  # phone_hot: 380504949649
-  # phone_fax: 380504949649
-  # email: agent@realestate.in.ua
-  # www: https://www.realestate.in.ua/
+  name: Нерухомість від Тараса Шевченка
+  address: 01000, м. Київ, вул.&nbsp;Степана&nbsp;Бандери,&nbsp;0
+  phone_main: 380000000001
+  phone_hot: 380000000002
+  phone_fax: 380000000003
+  phone_buy: 380000000004
+  email: realtor@realestate.in.ua
+  www: https://www.realestate.in.ua/
 
 #
 # Agency / ahentsiya
 #
 - type: agency
   item: ahentsiya
-  name: Нерухомість від Агенції Продавця
-  # address: 76018, м. Івано-Франківськ, вул.&nbsp;Січових&nbsp;Стрільців,&nbsp;56
-  # phone_main: 380504949649
-  # phone_hot: 380504949649
-  # phone_fax: 380504949649
-  # email: agent@realestate.if.ua
-  # www: https://www.realestate.if.ua/
+  name: Нерухомість від Агенції "Слава Україні"
+  address: 01000, м. Київ, вул.&nbsp;Степана&nbsp;Бандери,&nbsp;0
+  phone_main: 380000000001
+  phone_hot: 380000000002
+  phone_fax: 380000000003
+  phone_buy: 380000000004
+  email: agency@realestate.in.ua
+  www: https://www.realestate.in.ua/
