@@ -25,11 +25,11 @@
         </li>
       {% endif %}
       {% for page in (1..paginator.total_pages) %}
-      {% assign last_five = forloop.length | minus: 2 %}
+      {% assign last_five = forloop.length | minus: 4 %}
       {% assign last_page = forloop.length %}
-      {% if forloop.length > 3 %}
-        {% if paginator.page <= 3 %}
-          {% if forloop.index <= 3 %}
+      {% if forloop.length > 5 %}
+        {% if paginator.page <= 5 %}
+          {% if forloop.index <= 5 %}
             {% if forloop.first and page == paginator.page %}
               <li class="page-item active"><span class="page-link">{{ page }}</span></li>
             {% elsif forloop.first %}
@@ -40,7 +40,7 @@
               <li class="page-item"><a class="page-link" href="/{{ url }}/{{ page }}/">{{ page }}</a></li>
             {% endif %}
           {% else %}
-            {% if paginator.page == 3 %}
+            {% if paginator.page == 5 %}
               <li class="page-item"><a class="page-link" href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}">{{ page }}</a></li>
             {% endif %}
               <li class="page-item"><span class="page-link">...</span></li>
