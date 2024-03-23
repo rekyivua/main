@@ -46,7 +46,7 @@
   {%- capture name_description -%}{% include body-ads.html %}{%- endcapture -%}
   {%- assign seo_description = page.seo | strip | smartify -%}
   {%- capture seo_keywords -%}{%- include seo-tags.html type=page.type rent=page.rent -%}{%- endcapture -%}
-  <meta name="keywords" content="{{ seo_keywords | strip_html | default: site.keywords | smartify }}">
+  <meta name="keywords" content="{{ seo_keywords | strip_html | default: site.keywords | smartify -}}">
   <meta name="description" content="{{ name_description | remove: '&nbsp;' | strip_html }}{%- if seo_description != '' -%}, {{ seo_description }}{%- endif -%}">
 {%- else -%}
   <meta name="keywords" content="{{ page.keywords | default: site.keywords | smartify }}">
