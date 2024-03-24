@@ -36,8 +36,8 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v4
         with:
-          node-version: '20.11.1'
-          check-latest: true
+          node-version: '20'
+          #check-latest: true
           cache: npm
       - name: Setup Ruby
         uses: ruby/setup-ruby@55283cc23133118229fd3f97f9336ee23a179fcf # v1.146.0
@@ -71,6 +71,6 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v4
         with:
-          node-version: '20.11.1'
-          check-latest: true
+          node-version: '20'
+          #check-latest: true
           cache: npm
