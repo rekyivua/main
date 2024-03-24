@@ -45,7 +45,7 @@
     {%- if total_pages > link_max -%}
       {%- if lower_offset > 1 -%}
         <li class="page-item first">
-          <a class="page-link hoverable" href="/{{ url }}/" aria-label="Перейти до сторінки 1">1</a>
+          <a class="page-link hoverable" href="/{{ url }}/" title="Перейти до сторінки 1" aria-label="Перейти до сторінки 1">1</a>
         </li>
       {%- endif -%}
       {%- if lower_offset > lower_indicator -%}
