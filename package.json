@@ -1,0 +1,46 @@
+{
+  "name": "package-lock-utd",
+  "version": "1.1.3",
+  "license": "MIT",
+  "author": "Martin Buchalik",
+  "description": "Checks if package-lock.json is Up To Date (= UTD)",
+  "keywords": [
+    "check",
+    "ci",
+    "continuous integration",
+    "npm",
+    "package-lock"
+  ],
+  "files": [
+    "dist/"
+  ],
+  "type": "module",
+  "module": "dist/cli.js",
+  "bin": "dist/cli.js",
+  "scripts": {
+    "build": "rimraf dist/ && rollup -c --bundleConfigAsCjs",
+    "lint": "eslint . --max-warnings=0 && npm run lint-additional-files",
+    "lint-additional-files": "prettier --check **/*.{md,json,yml}"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MBuchalik/package-lock-utd.git"
+  },
+  "bugs": {
+    "url": "https://github.com/MBuchalik/package-lock-utd/issues"
+  },
+  "homepage": "https://github.com/MBuchalik/package-lock-utd#readme",
+  "//": "We declare all dependencies as devDependencies because we use rollup which adds the necessary dependencies to our bundle.",
+  "devDependencies": {
+    "@rollup/plugin-node-resolve": "^15.0.2",
+    "@rollup/plugin-typescript": "^11.1.0",
+    "@types/node": "^18.15.11",
+    "chalk": "^5.2.0",
+    "eslint-config-mbuchalik": "^1.2.0",
+    "exit-hook": "^3.2.0",
+    "micro-result": "^1.0.2",
+    "rimraf": "^5.0.0",
+    "rollup": "^3.20.4",
+    "typescript": "^5.0.4"
+  }
+}

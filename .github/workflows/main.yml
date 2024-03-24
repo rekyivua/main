@@ -42,9 +42,11 @@ jobs:
           #cache: npm
           #cache-dependency-path: "./blog/package-lock.json"
       - name: Check if package-lock.json is up to date
-        run: npx --yes package-lock-utd@1.x.x
-      - run: npm ci
-      - run: npm test
+        run: npx --yes package-lock-utd@latest
+      - name: Install dependencies
+        run: npm ci
+      - name: Run the test
+        run: npm test
       - name: Setup Ruby
         uses: ruby/setup-ruby@55283cc23133118229fd3f97f9336ee23a179fcf # v1.146.0
         with:
@@ -83,6 +85,8 @@ jobs:
           #cache: npm
           #cache-dependency-path: "./blog/package-lock.json"
       - name: Check if package-lock.json is up to date
-        run: npx --yes package-lock-utd@1.x.x
-      - run: npm ci
-      - run: npm test
+        run: npx --yes package-lock-utd@latest
+      - name: Install dependencies
+        run: npm ci
+      - name: Run the test
+        run: npm test
