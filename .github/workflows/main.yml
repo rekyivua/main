@@ -38,7 +38,7 @@ jobs:
         with:
           node-version: '20'
           check-latest: true
-      - run: npm ci
+      - run: npm install
       - run: npm run build --if-present
       - run: npm test
       - name: Setup Ruby
@@ -75,6 +75,6 @@ jobs:
         with:
           node-version: '20'
           check-latest: true
-      - run: npm ci
+      - run: npm install
       - run: npm run build --if-present
       - run: npm test
