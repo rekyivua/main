@@ -39,8 +39,10 @@ jobs:
           node-version: '20.11.1'
           architecture: 'x64'
           check-latest: true
-          cache: npm
-          cache-dependency-path: "./blog/package-lock.json"
+          #cache: npm
+          #cache-dependency-path: "./blog/package-lock.json"
+      - name: Check if package-lock.json is up to date
+        run: npx --yes package-lock-utd@1.x.x
       - run: npm ci
       - run: npm test
       - name: Setup Ruby
@@ -78,7 +80,9 @@ jobs:
           node-version: '20.11.1'
           architecture: 'x64'
           check-latest: true
-          cache: npm
-          cache-dependency-path: "./blog/package-lock.json"
+          #cache: npm
+          #cache-dependency-path: "./blog/package-lock.json"
+      - name: Check if package-lock.json is up to date
+        run: npx --yes package-lock-utd@1.x.x
       - run: npm ci
       - run: npm test
