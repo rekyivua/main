@@ -40,12 +40,8 @@ jobs:
           architecture: 'x64'
           check-latest: true
           cache: npm
-          #cache-dependency-path: 'sub-project/package-lock.json'
-          #cache-dependency-path: './server/package-lock.json'
-          #cache-dependency-path: '**/package-lock.json'
-      #- run: npm ci
-      #- run: npm test
-      - run: npm install
+          cache-dependency-path: "./blog/package-lock.json"
+      - run: npm ci
       - run: npm test
       - name: Setup Ruby
         uses: ruby/setup-ruby@55283cc23133118229fd3f97f9336ee23a179fcf # v1.146.0
@@ -83,10 +79,6 @@ jobs:
           architecture: 'x64'
           check-latest: true
           cache: npm
-          #cache-dependency-path: 'sub-project/package-lock.json'
-          #cache-dependency-path: './server/package-lock.json'
-          #cache-dependency-path: '**/package-lock.json'
-      #- run: npm ci
-      #- run: npm test
-      - run: npm install
+          cache-dependency-path: "./blog/package-lock.json"
+      - run: npm ci
       - run: npm test
