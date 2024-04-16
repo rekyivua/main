@@ -27,7 +27,7 @@
       <ul class="pagination float-right mb-0">
       {%- unless paginator.page == 1 -%}
         <li class="page-item icon-first">
-          <a class="page-link hoverable" href="/{{ url }}/" title="Перша сторінка" rel="first">
+          <a class="page-link hoverable" href="/{{ url }}/" title="Поерша сторінка" rel="first">
             <span aria-hidden="true" class="text-nowrap">❙❮</span>
             <span class="sr-only">Перша</span>
           </a>
@@ -45,7 +45,7 @@
     {%- if total_pages > link_max -%}
       {%- if lower_offset > 1 -%}
         <li class="page-item first">
-          <a class="page-link hoverable" href="/{{ url }}/" title="Перейти до сторінки 1" aria-label="Перейти до сторінки 1">1</a>
+          <a class="page-link hoverable" href="/{{ url }}/" aria-label="Перейти до сторінки 1">1</a>
         </li>
       {%- endif -%}
       {%- if lower_offset > lower_indicator -%}
@@ -81,13 +81,11 @@
       {% if page_current_flag == true %}
         {%- if page == page_current -%}
           <li class="page-item active pagination--offset-{{ diff_offset }}">
-            <span class="page-link" title="Сторінка {{ page }}" aria-label="Сторінка {{ page }}">
-              {{ page }}
-            </span>
+            <span class="page-link">{{ page }}</span>
           </li>
         {%- else -%}
           <li class="page-item pagination--offset-{{ diff_offset }}">
-            <a class="page-link hoverable" href="{%- if page == 1 -%}/{{ url }}/{%- else -%}/{{ url }}/{{ page }}/{%- endif -%}" title="Перейти до сторінки {{ page }}" aria-label="Перейти до сторінки {{ page }}">
+            <a class="page-link hoverable" href="{%- if page == 1 -%}/{{ url }}/{%- else -%}/{{ url }}/{{ page }}/{%- endif -%}" aria-label="Перейти до сторінки {{ page }}">
               <span class="sr-only">Сторінка {{ page_cursor }}</span>
               {{ page }}
             </a>
@@ -103,7 +101,7 @@
       {%- endif -%}
       {%- if upper_offset < total_pages -%}
         <li class="page-item last">
-          <a class="page-link hoverable" href="/{{ url }}/{{ total_pages }}/" title="Перейти до сторінки {{ total_pages }}" aria-label="Перейти до сторінки {{ total_pages }}">
+          <a class="page-link hoverable" href="/{{ url }}/{{ total_pages }}/" aria-label="Перейти до сторінки {{ total_pages }}">
             <span class="sr-only">{{ total_pages }} сторінок</span>
             {{ total_pages }}
           </a>
