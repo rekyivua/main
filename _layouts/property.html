@@ -91,8 +91,8 @@ layout: default
       <div class="col">
         <dl class="properties">
           <dt>
-            <a class="btn-link" data-toggle="popover" data-placement="top" title="Увага!" data-html="true" data-content="Якщо Ви <b>{{ seller }}</b> і бажаєте зробити змінити в оголошенні чи щось додати до оголошення або з певних причин видалити своє оголошення з цього сайту, будь ласка звяжіться знами у зручний для вас спосіб. Контакти ось <a href='/contacts.html'>тут...</a>" role="button">
-              <b>{% if page.rent %}Орендодавець{% else %}Продавець{% endif %}</b>
+            <a tabindex="0" class="link" data-toggle="popover" ata-trigger="focus" data-placement="top" data-html="true" data-content="Якщо Ви <b>{{ page.seller }}</b> і бажаєте зробити зміни в оголошенні чи щось додати до оголошення, або з певних причин видалити своє оголошення, будь ласка зв'яжіться знами у зручний для вас спосіб. Ми раді допомогти." role="button">
+              {% if page.rent %}Орендодавець{% else %}Продавець{% endif %}
             </a>
           </dt>
           <dd><a href="{{ site.url }}/region/{{ site.region_slug }}/?id={{ page.phone }}" title="{{ site.data.uk.offers }} у списку">{{ page.seller }}</a></dd>
