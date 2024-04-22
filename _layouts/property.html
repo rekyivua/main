@@ -90,8 +90,11 @@ layout: default
       </div>
       <div class="col">
         <dl class="properties">
-
-          <dt>{% if page.rent %}Орендодавець{% else %}Продавець{% endif %}</dt>
+          <dt>
+            <a class="btn-link" data-toggle="popover" data-placement="top" title="Увага!" data-html="true" data-content="Якщо Ви <b>{{ seller }}</b> і бажаєте зробити змінити в оголошенні чи щось додати до оголошення або з певних причин видалити своє оголошення з цього сайту, будь ласка звяжіться знами у зручний для вас спосіб. Контакти ось <a href='/contacts.html'>тут...</a>" role="button">
+              <b>{% if page.rent %}Орендодавець{% else %}Продавець{% endif %}</b>
+            </a>
+          </dt>
           <dd><a href="{{ site.url }}/region/{{ site.region_slug }}/?id={{ page.phone }}" title="{{ site.data.uk.offers }} у списку">{{ page.seller }}</a></dd>
 
           <dt>Контакти {% if page.rent %}орендодавця{% else %}продавця{% endif %}</dt>
