@@ -5,5 +5,5 @@ title: Нерухомість в місті Київ та в Київській 
 ---
 {%- if page.url contains "city" or page.url contains "town" -%}{%- assign isCityTown = true -%}{%- else -%}{%- assign isCityTown = false -%}{%- endif -%}
 {%- if page.url contains "village" -%}{%- assign isVillage = true -%}{%- else -%}{%- assign isVillage = false -%}{%- endif -%}
-{% comment %}{%- assign top = site.data.top -%}{%- if top.size > 0 -%}<div id="adsre" class="card-deck mx-n2 mb-3"></div>{%- endif -%}{% endсomment %}
+{% comment %}{%- assign top = site.data.top -%}{%- if top.size > 0 -%}<div id="adsre" class="card-deck mx-n2 mb-3"></div>{%- endif -%}{% endcomment %}
 {% include home/deck.html %}
