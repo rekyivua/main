@@ -101,9 +101,9 @@ pagination:
   sort_reverse: true
 
 jekyll_get_json:
-  - data: estates
-    json: 'https://www.realestate.kyiv.ua/region/data/estates.json'
-    cache: true
+  #- data: estates
+  #  json: 'https://www.realestate.kyiv.ua/region/data/estates.json'
+  #  cache: true
   - data: if
     json: 'https://www.realestate.if.ua/region/data/options.json'
     cache: true
