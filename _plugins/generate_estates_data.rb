@@ -1,5 +1,4 @@
 # _plugins/generate_estates_data.rb
-# Оптимізована версія для продакшену: швидка, без зайвих файлів
 
 require 'json'
 

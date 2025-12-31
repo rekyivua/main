@@ -1,6 +1,6 @@
 {%- assign pd = page.dir -%}
 {%- if pd contains '/city/' or pd contains '/town/' -%}{%- assign ct = true -%}{%- else -%}{%- assign ct = false -%}{%- endif -%}
-{%- if pd contains '/district/' -%}{%- assign dt = true -%}{%- else -%}{%- assign cd = false -%}{%- endif -%}
+{%- if pd contains '/district/' -%}{%- assign dt = true -%}{%- else -%}{%- assign dt = false -%}{%- endif -%}
 {%- assign sl = pd | split: '/' -%}
 {%- if sl.size == 4 and ct == true -%}
   {%- assign sls = sl | size | minus: 0 -%}
@@ -24,7 +24,7 @@
   {%- assign sls = sl | size | minus: 2 -%}
 {%- endif -%}
 {%- assign ld = sl | slice: 0, sls | join: '/' | append: '/' -%}
-{%- assign lps = site.pages | sort: 'dir' | where_exp: 'i', 'i.url contains ld and i.url == ld' -%}
+{%- assign lps = site.pages | where: 'url', ld -%}
 {%- for lpb in lps limit: 1 -%}
   {%- if lpb.breadcrumb -%}
     {%- assign location = lpb.breadcrumb -%}
