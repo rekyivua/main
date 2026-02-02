@@ -8,7 +8,7 @@
 
 - name: facebook
   title: Facebook
-  url: https://www.facebook.com/groups/realestate.if.ua
+  url: https://www.facebook.com/groups/realestate.kyiv.ua
   w: 23
   h: 23
 
@@ -52,8 +52,8 @@
 
 - name: website
   title: Вебсайт
-  url: https://add.realestate.if.ua
+  url: https://add.realestate.kyiv.ua
 
 - name: email
   title: Електронна пошта
-  url: mailto:info@realestate.if.ua
+  url: mailto:info@realestate.kyiv.ua
