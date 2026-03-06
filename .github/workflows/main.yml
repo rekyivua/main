@@ -32,13 +32,68 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
+      - name: Update exchange rates in _config.yml
+        run: |
+          CURRENT_USD=$(grep '^usd:' _config.yml | awk '{print $2}')
+          CURRENT_EUR=$(grep '^eur:' _config.yml | awk '{print $2}')
+          CURRENT_NBU=$(grep '^nbu:' _config.yml | awk '{print $2}')
+          USD="" EUR="" NBU=""
+
+          echo "Отримуємо офіційний курс НБУ..."
+          NBU_DATA=$(curl -sf --max-time 10 "https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?json" || echo "")
+          if [ -n "$NBU_DATA" ]; then
+            NBU=$(echo "$NBU_DATA" | python3 -c "import sys,json; data=json.load(sys.stdin); [print(round(r['rate'],4)) for r in data if r['cc']=='USD']" 2>/dev/null | head -1)
+            echo "✅ НБУ офіційний: NBU=$NBU"
+          else
+            NBU="$CURRENT_NBU"
+            echo "⚠️ НБУ недоступний, залишаємо NBU=$NBU"
+          fi
+
+          echo "Спроба PrivatBank (курс продажу)..."
+          PRIVAT_DATA=$(curl -sf --max-time 10 "https://api.privatbank.ua/p24api/pubinfo?exchange&coursid=5" || echo "")
+          if [ -n "$PRIVAT_DATA" ]; then
+            USD=$(echo "$PRIVAT_DATA" | python3 -c "import sys,json; data=json.load(sys.stdin); [print(round(float(r['sale']),2)) for r in data if r['ccy']=='USD']" 2>/dev/null | head -1)
+            EUR=$(echo "$PRIVAT_DATA" | python3 -c "import sys,json; data=json.load(sys.stdin); [print(round(float(r['sale']),2)) for r in data if r['ccy']=='EUR']" 2>/dev/null | head -1)
+            echo "✅ PrivatBank: USD=$USD EUR=$EUR"
+          fi
+
+          if [ -z "$USD" ] || [ -z "$EUR" ]; then
+            echo "PrivatBank недоступний. Спроба Monobank (курс продажу)..."
+            MONO_DATA=$(curl -sf --max-time 10 "https://api.monobank.ua/bank/currency" || echo "")
+            if [ -n "$MONO_DATA" ]; then
+              USD=$(echo "$MONO_DATA" | python3 -c "import sys,json; data=json.load(sys.stdin); [print(round(r.get('rateSell',r.get('rateCross',0)),2)) for r in data if r.get('currencyCodeA')==840 and r.get('currencyCodeB')==980]" 2>/dev/null | head -1)
+              EUR=$(echo "$MONO_DATA" | python3 -c "import sys,json; data=json.load(sys.stdin); [print(round(r.get('rateSell',r.get('rateCross',0)),2)) for r in data if r.get('currencyCodeA')==978 and r.get('currencyCodeB')==980]" 2>/dev/null | head -1)
+              echo "✅ Monobank: USD=$USD EUR=$EUR"
+            fi
+          fi
+
+          if [ -z "$USD" ] || [ -z "$EUR" ]; then
+            echo "⚠️ PrivatBank і Monobank недоступні. Використовуємо НБУ для usd/eur..."
+            if [ -n "$NBU_DATA" ]; then
+              USD=$(echo "$NBU_DATA" | python3 -c "import sys,json; data=json.load(sys.stdin); [print(round(r['rate'],2)) for r in data if r['cc']=='USD']" 2>/dev/null | head -1)
+              EUR=$(echo "$NBU_DATA" | python3 -c "import sys,json; data=json.load(sys.stdin); [print(round(r['rate'],2)) for r in data if r['cc']=='EUR']" 2>/dev/null | head -1)
+              echo "✅ НБУ fallback: USD=$USD EUR=$EUR"
+            fi
+          fi
+
+          if [ -z "$USD" ] || [ -z "$EUR" ]; then
+            echo "⚠️ Всі API недоступні! Залишаємо поточні: USD=$CURRENT_USD EUR=$CURRENT_EUR"
+            USD="$CURRENT_USD"
+            EUR="$CURRENT_EUR"
+          fi
+
+          sed -i "s/^usd: .*/usd: $USD/" _config.yml
+          sed -i "s/^eur: .*/eur: $EUR/" _config.yml
+          sed -i "s/^nbu: .*/nbu: $NBU/" _config.yml
+          echo "✅ _config.yml оновлено: USD=$USD EUR=$EUR NBU=$NBU"
+
       - name: Setup Ruby
         # https://github.com/ruby/setup-ruby/releases/tag/v1.207.0
         # uses: ruby/setup-ruby@4a9ddd6f338a97768b8006bf671dfbad383215f4
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.2' # Not needed with a .ruby-version file
+          ruby-version: '3.4' # Not needed with a .ruby-version file
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
           cache-version: 0 # Increment this number if you need to re-download cached gems
       #- uses: actions/cache@v4
@@ -57,7 +112,7 @@ jobs:
           JEKYLL_ENV: production
       - name: Upload artifact
         # Automatically uploads an artifact from the './_site' directory by default
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
 
   # Deployment job
   deploy:
