@@ -1,4 +1,1 @@
-{%- assign ferents = site.data.ferents -%}
-{%- assign records = owners
-  | concat: ferents
--%}
+{%- assign ferents = site.data.ferents -%}{%- assign records = owners  | concat: ferents-%}

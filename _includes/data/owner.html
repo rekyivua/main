@@ -1,14 +1,1 @@
-{%- assign split = page.dir | split: '/' -%}
-{%- if split.size <= 2 -%}
-  {%- assign location = include.location -%}
-{%- elsif split.size <= 3 and page.dir contains '/city/' or page.dir contains '/town/' -%}
-  {%- assign location = include.location -%}
-{%- elsif split.size >= 3 and page.dir contains '/district/' -%}
-  {%- include location.html -%}
-{%- else -%}
-  {%- include location.html -%}
-{%- endif -%}
-
-{%- assign estates = site.data.estates | where_exp: 'i', 'i.hidden != true' -%}
-{%- assign all_items = estates | concat: site.data.owners -%}
-{%- assign owners = all_items | unique_owners_with_phone -%}
+{%- assign split = page.dir | split: '/' -%}{%- if split.size <= 2 -%}  {%- assign location = include.location -%}{%- elsif split.size <= 3 and page.dir contains '/city/' or page.dir contains '/town/' -%}  {%- assign location = include.location -%}{%- elsif split.size >= 3 and page.dir contains '/district/' -%}  {%- include location.html -%}{%- else -%}  {%- include location.html -%}{%- endif -%}{%- assign owners = site.data._cached_owners -%}

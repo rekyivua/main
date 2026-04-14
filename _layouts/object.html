@@ -23,10 +23,13 @@ layout: compress
       {%- elsif pageu == '/district/town/' -%}
       {%- endif -%}
     {%- endcapture -%}
-    {%- assign ledge = pageu | split: '/' | last -%}
-    {%- assign ldir = '/assets/images/locations/' -%}
-    {%- assign lpath = ledge | prepend: ldir | append: '.jpg' | relative_url -%}
-    {%- assign file = site.static_files | where: 'path', lpath | first -%}
+    {% comment %}
+      {%- assign ledge = pageu | split: '/' | last -%}
+      {%- assign ldir = '/assets/images/locations/' -%}
+      {%- assign lpath = ledge | prepend: ldir | append: '.jpg' | relative_url -%}
+      {%- assign file = site.static_files | where: 'path', lpath | first -%}
+    {% endcomment %}
+    {%- include folder.html dir='/assets/images/logo/' slug=object -%}
     {%- capture title -%}
       {%- if paget -%}
         {{ paget | smartify }}{% if tlocation != '' %}{{ tlocation }}{% endif %} · {{ site.title | smartify }}
@@ -94,7 +97,7 @@ layout: compress
           </div>
           <div class="row mb-3">
             <div class="col-md-5">
-              {%- include image-slider.html folder=folder group='main' width='480' height='260' -%}
+              {%- include image-slider.html folder=folderSlider group='main' width='480' height='260' -%}
             </div>
             <div class="col-md-7 mt-3 mt-md-0">
               {%- assign isContent = content | strip_newlines -%}
