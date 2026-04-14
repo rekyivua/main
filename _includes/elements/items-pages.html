@@ -78,7 +78,7 @@
               {% endif %}
               {%- assign records = estates | concat: records -%}
               {%- if records.size > 0 -%}
-                {%- assign offers = site.data._cached_records | sort: 'date' | reverse -%}
+                {%- assign offers = records | sort: 'date' | reverse -%}
                 {%- assign total = offers | size -%}
                 {%- assign others = total | minus: 1 -%}
                 {%- for offer in offers limit: 1 -%}
