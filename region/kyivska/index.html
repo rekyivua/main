@@ -41,9 +41,16 @@ table: 2
               <option value="apartment">Квартири</option>
               <option value="house">Будинки</option>
               <option value="commercial">Комерція</option>
-              <option value="rent">Оренда</option>
               <option value="land">Земля</option>
               <option value="garage">Гаражі</option>
+            </select>
+          </div>
+          <div class="col-md-auto form-group mb-0">
+            <label for="filterAction" class="sr-only">Дія:</label>
+            <select id="filterAction" class="form-control form-control-sm mb-2">
+              <option value="all">Всі дії</option>
+              <option value="sale">Продаж</option>
+              <option value="rent">Оренда</option>
             </select>
           </div>
           <div class="col-md-auto form-group mb-0">
@@ -67,6 +74,17 @@ table: 2
               <option value="80-100">80-100 м²</option>
               <option value="100-150">100-150 м²</option>
               <option value="150-">150+ м²</option>
+            </select>
+          </div>
+          <div class="col-md-auto form-group mb-0">
+            <label for="filterSurfaceLand" class="sr-only">Площа землі:</label>
+            <select id="filterSurfaceLand" class="form-control form-control-sm mb-2">
+              <option value="">Площа землі м²</option>
+              <option value="0-100">до 100 м²</option>
+              <option value="100-500">100-500 м²</option>
+              <option value="500-1000">500-1000 м²</option>
+              <option value="1000-10000">1000-10000 м²</option>
+              <option value="10000-100000">10000+ м²</option>
             </select>
           </div>
           <div class="col-md-auto form-group mb-0">
@@ -95,8 +113,8 @@ table: 2
     </div>
     <hr class="mb-2 mt-2 mt-md-0 mt-lg-0">
     {%- include thanks-please.html -%}
-    <h2 class="h3">Всі оголошення про продаж нерухомості в {{ site.data.uk.deck_region_at }} області</h2>
-    <p><a rel="nofollow" href="/region/{{ site.region_slug }}/archive.html">Архів не актуальних оголошень</a></p>
+    <h2 class="h3">Всі оголошення про продаж та оренду нерухомості</h2>
+    <p><a rel="nofollow" href="/region/ivano-frankivska/archive.html">Архів не актуальних оголошень</a></p>
     <div class="row">
       <div class="col-12">
         <table

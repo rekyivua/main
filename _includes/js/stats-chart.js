@@ -6,7 +6,7 @@
 		apiEndpoint: 'https://stats.realestate.kyiv.ua/api/v0/stats/total'
 	};
 
-	const START_YEAR = 2024;
+	const START_YEAR = 2025;
 
 	const MONTHS_UA = ['Січень', 'Лютий', 'Березень', 'Квітень', 'Травень', 'Червень', 'Липень', 'Серпень', 'Вересень', 'Жовтень', 'Листопад', 'Грудень'];
 
