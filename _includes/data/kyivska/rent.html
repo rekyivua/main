@@ -1,1 +1,0 @@
-{%- include data/owner.html -%}{%- assign offers = site.data._cached_records | sort: 'date' | reverse | where_exp: 'i', "i.rent == '1'" -%}

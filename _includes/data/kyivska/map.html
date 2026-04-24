@@ -1,1 +1,2 @@
-{%- include data/owner.html -%}{%- assign offers = site.data._cached_records | sort: 'date' | reverse | where_exp: 'i', "i.coordinates and i.coordinates != ''" -%}
+{%- include data/owner.html -%}
+{%- assign offers = site.data._cached_records | where_exp: 'i', "i.coordinates and i.coordinates != ''" -%}
