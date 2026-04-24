@@ -10,6 +10,13 @@ $(function () {
   if (value && value !== '') {
     if (value.split('').length === 12) {
       $tabpro.bootstrapTable('filterBy', { phone: value });
+      $tabpro.on('load-success.bs.table', function(e, data) {
+        var filtered = $tabpro.bootstrapTable('getData');
+        if (filtered && filtered.length > 0) {
+          var seller = filtered[0].seller.replace('{{ site.data.uk.re_seller }} ', '');
+          $('h2.h3').text(seller + ' - всі оголошення про продаж та оренду нерухомості');
+        }
+      });
     } else {
       $tabpro.bootstrapTable('filterBy', { id: value });
       if ($('table[data-detail-formatter="htmlDetailFormatter"]').length === 1) {
@@ -53,28 +60,38 @@ $(function () {
     var $filterSurface = $("#filterSurface").closest("div.col-md-auto");
     var $filterFloor = $("#filterFloor").closest("div.col-md-auto");
     var $filterFloors = $("#filterFloors").closest("div.col-md-auto");
+    var $filterAction = $("#filterAction").closest("div.col-md-auto");
+    var $filterSurfaceLand = $("#filterSurfaceLand").closest("div.col-md-auto");
 
     $filterRooms.hide();
     $filterSurface.hide();
     $filterFloor.hide();
     $filterFloors.hide();
+    $filterAction.hide();
+    $filterSurfaceLand.hide();
+    $("#filterAction").val("all");
 
-    if (type === "apartment") {
+    if (type === "all") {
+    } else if (type === "apartment") {
+      $filterAction.show();
       $filterRooms.show();
       $filterSurface.show();
       $filterFloor.show();
       $filterFloors.show();
     } else if (type === "house") {
+      $filterAction.show();
       $filterRooms.show();
       $filterSurface.show();
       $filterFloors.show();
     } else if (type === "commercial" || type === "garage") {
+      $filterAction.show();
       $filterSurface.show();
     } else if (type === "land") {
-      $filterSurface.show();
+      $filterAction.show();
+      $filterSurfaceLand.show();
     }
 
-    $("#filterRooms, #filterSurface, #filterFloor, #filterFloors").val("");
+    $("#filterRooms, #filterSurface, #filterFloor, #filterFloors, #filterSurfaceLand").val("");
   }
 
   updateFilterVisibility();
@@ -88,6 +105,7 @@ $(function () {
     var data = window.tableAllOriginalData || $tabpro.bootstrapTable('getData');
     var $rooms = $("select#filterRooms");
     var $surface = $("select#filterSurface");
+    var $surfaceLand = $("select#filterSurfaceLand");
     var $floor = $("select#filterFloor");
     var $floors = $("select#filterFloors");
 
@@ -121,6 +139,25 @@ $(function () {
           }
         } else {
           if (rowSurf < parseFloat(range[0]) || rowSurf >= parseFloat(range[1])) {
+            return false;
+          }
+        }
+      }
+
+      if ($surfaceLand.val()) {
+        var surfLandVal = $surfaceLand.val();
+        var rangeLand = surfLandVal.split('-');
+        var rowSurfLand = parseFloat(row.surface_land) || 0;
+        if (rangeLand[0] === '') {
+          if (rowSurfLand < parseFloat(rangeLand[1])) {
+            return false;
+          }
+        } else if (rangeLand[1] === '') {
+          if (rowSurfLand < parseFloat(rangeLand[0])) {
+            return false;
+          }
+        } else {
+          if (rowSurfLand < parseFloat(rangeLand[0]) || rowSurfLand >= parseFloat(rangeLand[1])) {
             return false;
           }
         }
@@ -164,13 +201,21 @@ $(function () {
         }
       }
 
+      var action = $("#filterAction").val();
+      if (action === "sale" && row.rent !== "") {
+        return false;
+      }
+      if (action === "rent" && row.rent !== "1") {
+        return false;
+      }
+
       return true;
     });
 
     $tabpro.bootstrapTable('load', filteredData);
   }
 
-  $("select#filterRooms, select#filterSurface, select#filterFloor, select#filterFloors").change(function() {
+  $("select#filterRooms, select#filterSurface, select#filterFloor, select#filterFloors, #filterAction, #filterSurfaceLand").change(function() {
     if (window.tableAllOriginalData && window.tableAllOriginalData.length > 0) {
       applyTableFilters();
     }
@@ -349,7 +394,11 @@ function propertyFormatter(value, row) {
   var reRoomOrPrym = (row.type.includes('{{ site.data.uk.re_roomsp }}')) ? "{{ site.data.uk.re_roomsps }}" : "{{ site.data.uk.re_rooms }}";
   if (value !== '') {
     if (row.type.includes('{{ site.data.uk.re_land }}') || row.type.includes('{{ site.data.uk.re_land | downcase }}')) {
-      html = ['{{ site.data.uk.re_for_sale }} <b class="text-lowercase">' + row.type + '</b>, '];
+      if (row.rent === '1') {
+        html = ['{{ site.data.uk.re_for_rent }} <b class="text-lowercase">' + row.type + '</b>, '];
+      } else {
+        html = ['{{ site.data.uk.re_for_sale }} <b class="text-lowercase">' + row.type + '</b>, '];
+      }
       if (row.surface_land && row.surface_land !== '') {
         html.push('{{ site.data.uk.re_surface }} <b>' + row.surface_land + '</b> м² (' + (row.surface_land / 10000) + ' га)');
       }
