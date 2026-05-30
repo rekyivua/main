@@ -6,11 +6,10 @@ sitemap: false
 {%- include js/popper.min.js -%}
 {%- include js/bootstrap.min.js -%}
 {%- include js/bootstrap.smoothscroll.min.js -%}
-{%- include js/tom-select.base.min.js -%}
 {%- include js/itemsjs.min.js -%}
 {% comment %}
-{%- capture ads_home_js -%}{%- include js/ads.home.js -%}{%- endcapture -%}
-{{- ads_home_js | js_minify -}}
+  {%- capture ads_home_js -%}{%- include js/ads.home.js -%}{%- endcapture -%}
+  {{- ads_home_js | js_minify -}}
 {% endcomment %}
 {%- capture realtyua_js -%}{%- include js/realtyua.js -%}{%- endcapture -%}
 {{- realtyua_js | js_minify -}}

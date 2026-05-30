@@ -1,7 +1,7 @@
 comments:
   allowedFields: ["are", "tre", "surface", "sland", "rooms", "floor", "floors", "taddress", "address", "number", "tlocation", "location", "region", "description", "currency", "price", "phone", "fn", "ln", "agreed"]
   requiredFields: ["are", "tre", "surface", "sland", "rooms", "floor", "floors", "taddress", "address", "number", "tlocation", "location", "region", "currency", "price", "phone", "fn", "ln", "agreed"]
-  allowedOrigins: ["localhost", "realestate.if.ua", "www.realestate.if.ua"]
+  allowedOrigins: ["localhost", "realestate.kyiv.ua", "www.realestate.kyiv.ua"]
   branch: master
   commitMessage: "Property from {fields.date} - {options.slug}"
   filename: "entry{@timestamp}"

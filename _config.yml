@@ -11,6 +11,7 @@ region: Київська область
 region_slug: kyivska
 region_size: .89rem
 
+stats_api_token: ''
 usd: 43.40
 eur: 51.50
 nbu: 43.1020
@@ -88,6 +89,7 @@ defaults:
 
 plugins:
   - jekyll-sitemap
+  - jekyll-redirect-from
   - jekyll-paginate-v2
   - jekyll-get-json
 

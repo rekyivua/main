@@ -52,9 +52,9 @@ jobs:
 
           # Collect all unique directories that need .html updates.
           # For each changed .md, bubble up through every parent directory.
-          # Example: region/city/ivano-frankivsk/apartment/_posts/file.md
-          #   → region/city/ivano-frankivsk/apartment/
-          #   → region/city/ivano-frankivsk/
+          # Example: region/city/kyiv/apartment/_posts/file.md
+          #   → region/city/kyiv/apartment/
+          #   → region/city/kyiv/
           #   → region/city/
           #   → region/
           declare -A DIRS_TO_UPDATE
@@ -88,7 +88,6 @@ jobs:
           git add -A
           # [skip ci] prevents this commit from triggering the workflow again
           git diff --staged --quiet || git commit -m "chore: update last_modified_at [skip ci]"
-          git pull --rebase
           git push
 
   # Build job
@@ -151,6 +150,15 @@ jobs:
           sed -i "s/^eur: .*/eur: $EUR/" _config.yml
           sed -i "s/^nbu: .*/nbu: $NBU/" _config.yml
           echo "✅ _config.yml оновлено: USD=$USD EUR=$EUR NBU=$NBU"
+
+      - name: Set stats API token
+        run: |
+          if [ -n "${{ secrets.STATS_API_TOKEN }}" ]; then
+            sed -i "s/^stats_api_token: .*/stats_api_token: ${{ secrets.STATS_API_TOKEN }}/" _config.yml
+            echo "✅ Stats API token встановлено"
+          else
+            echo "⚠️ STATS_API_TOKEN не задано — графік статистики не працюватиме"
+          fi
 
       - name: Setup Ruby
         # https://github.com/ruby/setup-ruby/releases/tag/v1.207.0

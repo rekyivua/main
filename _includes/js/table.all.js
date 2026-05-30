@@ -1,6 +1,30 @@
 $(function () {
   "use strict";
   var $tabpro = $('table#property');
+
+  var $btWrapper = $tabpro.closest('.bootstrap-table');
+  var spinnerId = 'tbl-spinner';
+  if ($btWrapper.length) {
+    $btWrapper.after('<div id="' + spinnerId + '">' + blockLoader.spinner() + '</div>');
+    $btWrapper.hide();
+    var $filterSource = $('#filter-toolbar-source');
+    if ($filterSource.length) {
+      var $toolbar = $btWrapper.find('.fixed-table-toolbar');
+      var $searchInput = $toolbar.find('.search-input').detach();
+      $toolbar.find('.search').remove();
+      $searchInput.removeClass('mb-2').addClass('form-control-sm');
+      var $formRow = $filterSource.children();
+      var $searchCol = $('<div class="col-md-auto form-group mb-0">');
+      var $inputGroup = $('<div class="input-group mb-2">');
+      $inputGroup.append($searchInput);
+      $inputGroup.append('<div class="input-group-append"><button type="button" id="filterReset" class="btn btn-link btn-sm" title="Очистити фільтер">&#8634;</button></div>');
+      $searchCol.append($inputGroup);
+      $formRow.append($searchCol);
+      $toolbar.html($filterSource.children());
+      $filterSource.remove();
+    }
+  }
+
   const params = new Proxy(new URLSearchParams(window.location.search), {
     get: function(searchParams, prop) {
       return searchParams.get(prop);
@@ -19,19 +43,35 @@ $(function () {
       });
     } else {
       $tabpro.bootstrapTable('filterBy', { id: value });
-      if ($('table[data-detail-formatter="htmlDetailFormatter"]').length === 1) {
-        $tabpro.bootstrapTable('toggleDetailView', 0);
-        $('tbody tr[data-index="0"]').addClass('active');
-      } else {
-        $tabpro.on('post-body.bs.table', function() {
+
+      function handleIdFilterResult() {
+        $('#' + spinnerId).remove();
+        var data = $tabpro.bootstrapTable('getData');
+        if (data && data.length > 0) {
+          $tabpro.removeClass('d-none');
+          $tabpro.closest('.bootstrap-table').show();
           $tabpro.bootstrapTable('toggleDetailView', 0);
           $('tbody tr[data-index="0"]').addClass('active');
-        });
+          $('div.row.justify-content-between').remove();
+          $('div.fixed-table-pagination').remove();
+          $('div[class="fixed-table-toolbar"]').replaceWith('<div class="float-right btn-group"><a class="my-2" href="' + location.protocol + '//' + location.host + location.pathname + '">Переглянути інші пропозиції</a></div>');
+          $('h2[class="h3"]').remove();
+        } else {
+          if ($tabpro.closest('.bootstrap-table').find('.alert').length) return;
+          var $wrapper = $tabpro.closest('.bootstrap-table');
+          if ($wrapper.length) {
+            $wrapper.html(blockLoader.error('Такого запису не знайдено', location.protocol + '//' + location.host + location.pathname)).show();
+          } else {
+            $tabpro.replaceWith(blockLoader.error('Такого запису не знайдено', location.protocol + '//' + location.host + location.pathname));
+          }
+        }
       }
-      $('div[class="row justify-content-between"]').remove();
-      $('div.fixed-table-pagination').remove();
-      $('div[class="fixed-table-toolbar"]').replaceWith('<div class="float-right btn-group"><a class="my-2" href="' + location.protocol + '//' + location.host + location.pathname + '">' + 'Переглянути інші пропозиції' + '</a></div>');
-      $('h2[class="h3"]').remove();
+
+      if ($('table[data-detail-formatter="htmlDetailFormatter"]').length === 1) {
+        handleIdFilterResult();
+      } else {
+        $tabpro.on('post-body.bs.table', handleIdFilterResult);
+      }
     }
   }
   var expandedRow = null;
@@ -49,10 +89,25 @@ $(function () {
     $($element).siblings().removeClass('active');
     $($element).addClass('active');
   });
-  $tabpro.on('load-success.bs.table', function(e, data) {
-    window.tableAllOriginalData = data;
-    setTimeout(applyTableFilters, 100);
-  });
+  if ($tabpro.data('url')) {
+    $tabpro.on('load-success.bs.table', function(e, data) {
+      $('#' + spinnerId).remove();
+      $tabpro.removeClass('d-none');
+      $tabpro.closest('.bootstrap-table').show();
+      window.tableAllOriginalData = data;
+      setTimeout(applyTableFilters, 100);
+    });
+    $tabpro.on('load-error.bs.table', function(e, status) {
+      $('#' + spinnerId).remove();
+      var msg = status === 404 ? 'Ой! Щось пішло не так, не вдалося завантажити дані' : 'Не вдалося завантажити дані';
+      var $wrapper = $tabpro.closest('.bootstrap-table');
+      $wrapper.html(blockLoader.error(msg)).show();
+    });
+  } else {
+    $('#' + spinnerId).remove();
+    $tabpro.removeClass('d-none');
+    $tabpro.closest('.bootstrap-table').show();
+  }
 
   function updateFilterVisibility() {
     var type = $("#data").val();
@@ -62,33 +117,39 @@ $(function () {
     var $filterFloors = $("#filterFloors").closest("div.col-md-auto");
     var $filterAction = $("#filterAction").closest("div.col-md-auto");
     var $filterSurfaceLand = $("#filterSurfaceLand").closest("div.col-md-auto");
+    var $filterSearch = $(".search-input").closest("div.col-md-auto");
 
-    $filterRooms.hide();
-    $filterSurface.hide();
-    $filterFloor.hide();
-    $filterFloors.hide();
-    $filterAction.hide();
-    $filterSurfaceLand.hide();
+    $filterRooms.addClass('d-none');
+    $filterSurface.addClass('d-none');
+    $filterFloor.addClass('d-none');
+    $filterFloors.addClass('d-none');
+    $filterAction.addClass('d-none');
+    $filterSurfaceLand.addClass('d-none');
+    $filterSearch.addClass('d-none');
     $("#filterAction").val("all");
 
     if (type === "all") {
     } else if (type === "apartment") {
-      $filterAction.show();
-      $filterRooms.show();
-      $filterSurface.show();
-      $filterFloor.show();
-      $filterFloors.show();
+      $filterAction.removeClass('d-none');
+      $filterRooms.removeClass('d-none');
+      $filterSurface.removeClass('d-none');
+      $filterFloor.removeClass('d-none');
+      $filterFloors.removeClass('d-none');
+      $filterSearch.removeClass('d-none');
     } else if (type === "house") {
-      $filterAction.show();
-      $filterRooms.show();
-      $filterSurface.show();
-      $filterFloors.show();
+      $filterAction.removeClass('d-none');
+      $filterRooms.removeClass('d-none');
+      $filterSurface.removeClass('d-none');
+      $filterFloors.removeClass('d-none');
+      $filterSearch.removeClass('d-none');
     } else if (type === "commercial" || type === "garage") {
-      $filterAction.show();
-      $filterSurface.show();
+      $filterAction.removeClass('d-none');
+      $filterSurface.removeClass('d-none');
+      $filterSearch.removeClass('d-none');
     } else if (type === "land") {
-      $filterAction.show();
-      $filterSurfaceLand.show();
+      $filterAction.removeClass('d-none');
+      $filterSurfaceLand.removeClass('d-none');
+      $filterSearch.removeClass('d-none');
     }
 
     $("#filterRooms, #filterSurface, #filterFloor, #filterFloors, #filterSurfaceLand").val("");
@@ -101,8 +162,15 @@ $(function () {
     $tabpro.bootstrapTable("refresh", { url: "data/" + $(this).val() + ".json" });
   });
 
+  $('#filterReset').click(function() {
+    $("#data").val("all");
+    updateFilterVisibility();
+    $tabpro.bootstrapTable("refresh", { url: "data/all.json" });
+  });
+
   function applyTableFilters() {
     var data = window.tableAllOriginalData || $tabpro.bootstrapTable('getData');
+    if (!data || !data.length) return;
     var $rooms = $("select#filterRooms");
     var $surface = $("select#filterSurface");
     var $surfaceLand = $("select#filterSurfaceLand");
@@ -113,15 +181,15 @@ $(function () {
       if ($rooms.val()) {
         var roomsVal = parseInt($rooms.val());
         var rowRooms = parseInt(row.rooms) || 0;
-        if (roomsVal === 5) {
-          if (rowRooms < 5) {
-            return false;
+          if (roomsVal === 6) {
+            if (rowRooms < 6) {
+              return false;
+            }
+          } else {
+            if (rowRooms !== roomsVal) {
+              return false;
+            }
           }
-        } else {
-          if (rowRooms !== roomsVal) {
-            return false;
-          }
-        }
       }
 
       if ($surface.val()) {
@@ -164,42 +232,38 @@ $(function () {
       }
 
       if ($floor.val()) {
-        var floorVal = $floor.val();
-        var floorRange = floorVal.split('-');
-        var rowFloor = parseInt(row.floor) || 0;
-        if (floorRange[0] === '') {
-          if (rowFloor < parseInt(floorRange[1])) {
-            return false;
-          }
-        } else if (floorRange[1] === '') {
-          if (rowFloor < parseInt(floorRange[0])) {
-            return false;
-          }
-        } else {
-          if (rowFloor < parseInt(floorRange[0]) || rowFloor >= parseInt(floorRange[1])) {
-            return false;
+          var floorVal = $floor.val();
+          if (floorVal.indexOf('-') === -1) {
+            if (parseInt(row.floor) !== parseInt(floorVal)) return false;
+          } else {
+            var floorRange = floorVal.split('-');
+            var rowFloor = parseInt(row.floor) || 0;
+            if (floorRange[0] === '') {
+              if (rowFloor < parseInt(floorRange[1])) return false;
+            } else if (floorRange[1] === '') {
+              if (rowFloor < parseInt(floorRange[0])) return false;
+            } else {
+              if (rowFloor < parseInt(floorRange[0]) || rowFloor >= parseInt(floorRange[1])) return false;
+            }
           }
         }
-      }
 
-      if ($floors.val()) {
-        var floorsVal = $floors.val();
-        var floorsRange = floorsVal.split('-');
-        var rowFloors = parseInt(row.floors) || 0;
-        if (floorsRange[0] === '') {
-          if (rowFloors < parseInt(floorsRange[1])) {
-            return false;
-          }
-        } else if (floorsRange[1] === '') {
-          if (rowFloors < parseInt(floorsRange[0])) {
-            return false;
-          }
-        } else {
-          if (rowFloors < parseInt(floorsRange[0]) || rowFloors >= parseInt(floorsRange[1])) {
-            return false;
+        if ($floors.val()) {
+          var floorsVal = $floors.val();
+          if (floorsVal.indexOf('-') === -1) {
+            if (parseInt(row.floors) !== parseInt(floorsVal)) return false;
+          } else {
+            var floorsRange = floorsVal.split('-');
+            var rowFloors = parseInt(row.floors) || 0;
+            if (floorsRange[0] === '') {
+              if (rowFloors < parseInt(floorsRange[1])) return false;
+            } else if (floorsRange[1] === '') {
+              if (rowFloors < parseInt(floorsRange[0])) return false;
+            } else {
+              if (rowFloors < parseInt(floorsRange[0]) || rowFloors >= parseInt(floorsRange[1])) return false;
+            }
           }
         }
-      }
 
       var action = $("#filterAction").val();
       if (action === "sale" && row.rent !== "") {
@@ -221,25 +285,31 @@ $(function () {
     }
   });
   $('#property').on('post-body.bs.table', function() {
-    $('.page-link[href="javascript:void(0)"]').attr('href', '#');
+$('.page-link[href="javascript:void(0)"]').attr('href', '#');
+$('.fixed-table-toolbar .search-input').each(function(i) {
+  $(this).attr({ id: 'tableSearch' + (i + 1), name: 'tableSearch' });
+});
+$('.fixed-table-toolbar .search-input').each(function(i) {
+  $(this).attr({ id: 'tableSearch' + (i + 1), name: 'tableSearch' });
+});
   });
 });
 
-function drawPlaceholder(canvas) {
+function drawCanvasText(canvas, fontSize, text, color) {
   var ctx = canvas.getContext('2d');
-  var fontSize = 16;
-  ctx.font = fontSize + 'px -apple-system, "Source Sans Pro", "Open Sans", sans-serif';
-  var text = '+38 XXX XXX XX XX';
-  var metrics = ctx.measureText(text);
-  var textWidth = metrics.width;
-  var padding = 0;
-  canvas.width = Math.ceil(textWidth) + (padding * 2);
+  var font = fontSize + 'px -apple-system, "Source Sans Pro", "Open Sans", sans-serif';
+  ctx.font = font;
+  canvas.width = Math.ceil(ctx.measureText(text).width);
   canvas.height = fontSize + 10;
-  ctx.font = fontSize + 'px -apple-system, "Source Sans Pro", "Open Sans", sans-serif';
+  ctx.font = font;
   ctx.textBaseline = 'middle';
-  ctx.fillStyle = '#2d5ca6';
+  ctx.fillStyle = color;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.fillText(text, padding, fontSize - 1);
+  ctx.fillText(text, 0, fontSize - 1);
+}
+
+function drawPlaceholder(canvas) {
+  drawCanvasText(canvas, 16, '+38 XXX XXX XX XX', '#2d5ca6');
 }
 
 var month = [
@@ -340,7 +410,9 @@ function jsDetailFormatter(index, row, $detail) {
   var images = Object.values(row.images || {});
 
   var reFooter = function() {
-    if (row.rent && row.rent !== '' && row.rent == 1) {
+    if (isArchive) {
+      html.push('<div class="col px-1"><dl><dt>{{ site.data.uk.re_datea }}</dt><dd>' + d.getDate() + '&nbsp;' + month[n] + '&nbsp;' + d.getFullYear() + '&nbsp;{{ site.data.uk.roku }}</dd></dl></div>');
+    } else if (row.rent && row.rent !== '' && row.rent == 1) {
       html.push('<div class="col px-1"><dl><dt>{{ site.data.uk.re_dater }}</dt><dd>' + d.getDate() + '&nbsp;' + month[n] + '&nbsp;' + d.getFullYear() + '&nbsp;{{ site.data.uk.roku }}</dd></dl></div>');
     } else if (row.type.includes('{{ site.data.uk.re_land }}') || row.type.includes('{{ site.data.uk.re_land | downcase }}')) {
       html.push('<div class="col px-1"><dl><dt>{{ site.data.uk.re_datel }}</dt><dd>' + d.getDate() + '&nbsp;' + month[n] + '&nbsp;' + d.getFullYear() + '&nbsp;{{ site.data.uk.roku }}</dd></dl></div>');
@@ -537,3 +609,6 @@ function priceSorter(a, b) {
 }
 
 $('.page-link[href="javascript:void(0)"]').attr('href', '#');
+$('.fixed-table-toolbar .search-input').each(function(i) {
+  $(this).attr({ id: 'tableSearch' + (i + 1), name: 'tableSearch' });
+});
